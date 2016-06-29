@@ -45,22 +45,6 @@ public class JSSerializer : MonoBehaviour
 
         ST_MAX = 100,
     }
-    public enum AnalyzeType
-    {
-        Unit,
-
-        ArrayBegin,
-        ArrayObj,
-        ArrayEnd,
-
-        StructBegin,
-        StructObj,
-        StructEnd,
-
-        ListBegin,
-        ListObj,
-        ListEnd,
-    }
     /// <summary>
     /// Save a value in JavaScript and return ID
     /// </summary>
@@ -159,7 +143,7 @@ public class JSSerializer : MonoBehaviour
     }
     public class SerializeStruct
     {
-        public enum SType { Root, Array, Struct, List, Unit };
+        public enum SType { Root, Unit };
         public SType type;
         public string name;
         public string typeName;
@@ -205,84 +189,14 @@ public class JSSerializer : MonoBehaviour
                 }
             }
         }
-        /// <summary>
-        /// Calc jsval
-        /// save in this.val    and return it
-        /// </summary>
-        /// <returns></returns>
-        public int calcID()
-        {
-            switch (this.type)
-            {
-                case SType.Unit:
-                    // already calucated when TraverseSerialize()
-                    break;
-                case SType.Array:
-                    {
-                        // 当数组元素个数为0时，lstChildren是null
-                        int Count = (lstChildren == null ? 0 : lstChildren.Count);
-						// Can not combine these 2 loops
-						// moveID2Arr can be called inside calcID 
-                        for (var i = 0; i < Count; i++)
-                        {
-                            lstChildren[i].calcID();
-                        }
-						for (var i = 0; i < Count; i++)
-                        {
-							int id = lstChildren[i].id;
-                            JSApi.moveID2Arr(id, i);
-                        }
-						// 注意：setArrayS 最后一个参数是 false
-                        JSApi.setArrayS((int)JSApi.SetType.SaveAndTempTrace, Count, false);
-                        this.id = JSApi.getSaveID();
-                    }
-                    break;
-                case SType.Struct:
-                    {
-                        //
-                        // the process here is a little complex
-                        // for C# class like RaycastHit, UnityEngine.RaycastHit.ctor will be called to create object, because it's C# class, ctor actually goes to C#
-                        // subsequent call to setProperty actually also goes to C#
-                        //
-                        // for pure JavaScript class, ctor and setProperty are done in JavaScript
-                        //
-                        int jsObjID = JSApi.newJSClassObject(this.typeName);
-                        this.id = jsObjID;
-                        if (jsObjID == 0)
-                        {
-                            Debug.LogError("Serialize error: call \"" + this.typeName + "\".ctor return null, , did you forget to export that class?");
-                        }
-                        else
-                        {
-                            //IntPtr jsObj = JSApi.JSh_NewObjectAsClass(JSMgr.cx, jstypeObj, "ctor", null /*JSMgr.mjsFinalizer*/);
-                            for (var i = 0; lstChildren != null && i < lstChildren.Count; i++)
-                            {
-                                var child = lstChildren[i];
-                                int id = child.calcID();
-                                //JSApi.JSh_SetUCProperty(JSMgr.cx, jsObjID, child.name, -1, ref mVal);
-                                //JSApi.setProperty(jsObjID, child.name, id);
-
-								SetObjectFieldOrProperty(jsObjID, child.name, id);
-                            }
-                        }
-                    }
-                    break;
-                case SType.List:
-                    {
-                        // List is not supported now.
-                        // please use [] instead.
-                    }
-                    break;
-            }
-            return this.id;
-        }
     }
+
     /// <summary>
     /// Traverses the serialization.
     /// </summary>
     /// <param name="jsObjID">The js object identifier.</param>
     /// <param name="st">The parent struct.</param>
-    public void TraverseSerialize(int jsObjID, SerializeStruct st)
+    public void ParseSerializeData(int jsObjID, SerializeStruct st)
     {
         while (true)
         {
@@ -294,132 +208,94 @@ public class JSSerializer : MonoBehaviour
             int y = s.IndexOf('/', x + 1);
             string s0 = s.Substring(0, x);
             string s1 = s.Substring(x + 1, y - x - 1);
-            switch (s0)
-            {
-                case "ArrayBegin":
-                    {
-                        SerializeStruct.SType sType = SerializeStruct.SType.Array;
-                        var ss = new SerializeStruct(sType, s1, st);
-                        st.AddChild(ss);
-                        TraverseSerialize(jsObjID, ss);
-                    }
-                    break;
-                // StructBegin and ListBegin also contains type
-                case "StructBegin":
-                case "ListBegin":
-                    {
-                        SerializeStruct.SType sType = SerializeStruct.SType.Array;
-                        if (s0 == "StructBegin") sType = SerializeStruct.SType.Struct;
-                        else if (s0 == "ListBegin") sType = SerializeStruct.SType.List;
-                        string s2 = s.Substring(y + 1, s.Length - y - 1);
 
-                        var ss = new SerializeStruct(sType, s1, st);
-                        ss.typeName = s2;
-                        st.AddChild(ss);
-                        TraverseSerialize(jsObjID, ss);
-                    }
-                    break;
-                case "ArrayEnd":
-                case "StructEnd":
-                case "ListEnd":
-                    {
-                        // ! return here
-                        return;
-                    }
-                    //break;
-                default:
-                    {
-                        UnitType eUnitType = (UnitType)int.Parse(s0);
-                        if (eUnitType == UnitType.ST_UnityEngineObject)
-                        {
-                            string s2 = s.Substring(y + 1, s.Length - y - 1);
-                            var valName = s1;
-                            var objIndex = int.Parse(s2);
-                            JSMgr.datax.setObject((int)JSApi.SetType.SaveAndTempTrace, this.arrObject[objIndex]);
-
-                            var child = new SerializeStruct(SerializeStruct.SType.Unit, valName, st);
-                            child.id = JSApi.getSaveID();
-                            st.AddChild(child);
-                        }
-                        else if (eUnitType == UnitType.ST_JavaScriptMonoBehaviour)
-                        {
-                            var valName = s1;
-                            string s2 = s.Substring(y + 1, s.Length - y - 1);
-                            var arr = s2.Split('/');
-                            var objIndex = int.Parse(arr[0]);
-                            var scriptName = arr[1];
-
-                            var child = new SerializeStruct(SerializeStruct.SType.Unit, valName, st);
-							JSComponent component;
-                            int refJSObjID = this.GetGameObjectMonoBehaviourJSObj((GameObject)this.arrObject[objIndex], scriptName, out component);
-                            if (refJSObjID == 0)
-                            {
-                                child.id = 0;
-                            }
-                            else
-							{
-								if (waitSerialize == null)
-									waitSerialize = new List<JSComponent>();
-								waitSerialize.Add(component);
-
-                                JSApi.setObject((int)JSApi.SetType.SaveAndTempTrace, refJSObjID);
-                                child.id = JSApi.getSaveID();
-                            }
-
-                            st.AddChild(child);
-                        }
-                        else
-                        {
-                            string s2 = s.Substring(y + 1, s.Length - y - 1);
-                            var valName = s1;
-                            int id = toID(eUnitType, s2);
-                            var child = new SerializeStruct(SerializeStruct.SType.Unit, valName, st);
-                            //child.val = JSMgr.vCall.valTemp;
-                            child.id = id;
-                            st.AddChild(child);
-                        }
-                    }
-                    break;
-            }
-        }
-    }
-    int arrStringIndex = 0;
-    string NextString()
-    {
-        if (arrString == null) return null;
-        if (arrStringIndex >= 0 && arrStringIndex < arrString.Length)
-        {
-            return arrString[arrStringIndex++];
-        }
-        return null;
+			UnitType eUnitType = (UnitType)int.Parse(s0);
+			if (eUnitType == UnitType.ST_UnityEngineObject)
+			{
+				string s2 = s.Substring(y + 1, s.Length - y - 1);
+				var valName = s1;
+				var objIndex = int.Parse(s2);
+				JSMgr.datax.setObject((int)JSApi.SetType.SaveAndTempTrace, this.arrObject[objIndex]);
+				
+				var child = new SerializeStruct(SerializeStruct.SType.Unit, valName, st);
+				child.id = JSApi.getSaveID();
+				st.AddChild(child);
+			}
+			else if (eUnitType == UnitType.ST_JavaScriptMonoBehaviour)
+			{
+				var valName = s1;
+				string s2 = s.Substring(y + 1, s.Length - y - 1);
+				var arr = s2.Split('/');
+				var objIndex = int.Parse(arr[0]);
+				var scriptName = arr[1];
+				
+				var child = new SerializeStruct(SerializeStruct.SType.Unit, valName, st);
+				JSComponent component;
+				int refJSObjID = this.GetGameObjectMonoBehaviourJSObj((GameObject)this.arrObject[objIndex], scriptName, out component);
+				if (refJSObjID == 0)
+				{
+					child.id = 0;
+				}
+				else
+				{
+					if (waitSerialize == null)
+						waitSerialize = new List<JSComponent>();
+					waitSerialize.Add(component);
+					
+					JSApi.setObject((int)JSApi.SetType.SaveAndTempTrace, refJSObjID);
+					child.id = JSApi.getSaveID();
+				}
+				
+				st.AddChild(child);
+			}
+			else
+			{
+				string s2 = s.Substring(y + 1, s.Length - y - 1);
+				var valName = s1;
+				int id = toID(eUnitType, s2);
+				var child = new SerializeStruct(SerializeStruct.SType.Unit, valName, st);
+				//child.val = JSMgr.vCall.valTemp;
+				child.id = id;
+				st.AddChild(child);
+			}
+		}
 	}
-
+	int arrStringIndex = 0;
+	string NextString()
+	{
+		if (arrString == null) return null;
+		if (arrStringIndex >= 0 && arrStringIndex < arrString.Length)
+		{
+			return arrString[arrStringIndex++];
+		}
+		return null;
+	}
+	
 	bool dataSerialized = false;
 	protected bool DataSerialized { get { return dataSerialized; } }
-	protected List<JSComponent> waitSerialize = null;
+    protected List<JSComponent> waitSerialize = null;
     /// <summary>
     /// Initializes the serialized data.
     /// </summary>
     /// <param name="jsObjID">The js object identifier.</param>
     public virtual void initSerializedData(int jsObjID)
-	{
-		if (dataSerialized)
-			return;
-		
-		dataSerialized = true;
-
+    {
+        if (dataSerialized)
+            return;
+        
+        dataSerialized = true;
+        
         if (arrString == null || arrString.Length == 0)
         {
             return;
         }
-
+        
         var root = new SerializeStruct(SerializeStruct.SType.Root, "this-name-doesn't-matter", null);
-        TraverseSerialize(jsObjID, root);
+        ParseSerializeData(jsObjID, root);
         if (root.lstChildren != null)
         {
             foreach (var child in root.lstChildren)
             {
-                child.calcID();
 				SetObjectFieldOrProperty(jsObjID, child.name, child.id);
             }
         }
