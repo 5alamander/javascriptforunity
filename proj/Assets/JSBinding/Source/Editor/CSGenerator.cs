@@ -1438,18 +1438,6 @@ using UnityEngine;
      * Some classes have another name
      * for example: js has 'Object'
      */
-    //static Dictionary<Type, string> typeClassName = new Dictionary<Type, string>();
-    //static string className = string.Empty;
-
-//     public class TEST2
-//     {
-//         public void Add()
-//        
-    public static void MakeJJJ(ref int i)
-    {
-
-    }
-    
     public static bool CheckClassBindings()
     {
         Dictionary<Type, bool> clrLibrary = new Dictionary<Type, bool>();
@@ -1473,12 +1461,6 @@ using UnityEngine;
             if (typeof(System.Delegate).IsAssignableFrom(type))
             {
                 sb.AppendFormat("\"{0}\" Delegate can not be exported.\n",
-                    JSNameMgr.GetTypeFullName(type));
-                ret = false;
-            }
-            if (JSSerializerEditor.WillTypeBeTranslatedToJavaScript(type))
-            {
-                sb.AppendFormat("\"{0}\" has JsType attribute, it can not be in JSBindingSettings.classes at the same time.\n", 
                     JSNameMgr.GetTypeFullName(type));
                 ret = false;
             }

@@ -756,14 +756,10 @@ public class JSBindingSettings
 
     // extension (including ".")
     public static string jsExtension = ".javascript";
-    public static string jscExtension = ".bytes";
     // directory to save js files
     public static string jsDir = Application.streamingAssetsPath + "/JavaScript";
 	public static string jsRelDir = "Assets/StreamingAssets/JavaScript";
     public static string mergedJsDir = Application.dataPath + "/../Temp/JavaScript_js";
-    public static string jscDir = Application.dataPath + "/JSC";
-	public static string jscRelDir = "Assets/JSC";
-
 
     // directory to save generated js files (gen by JSGenerateor2)
     public static string jsGeneratedDir{ get { return jsDir + "/Generated"; } }
@@ -772,55 +768,8 @@ public class JSBindingSettings
     // 
     public static string csDir = Application.dataPath + "/JSBinding/CSharp";
     public static string csGeneratedDir = Application.dataPath + "/JSBinding/Generated";
-	public static string sharpkitGeneratedFiles = JSBindingSettings.jsDir + "/SharpKitGeneratedFiles.javascript";
-    public static string sharpKitGenFileDir = "StreamingAssets/JavaScript/SharpKitGenerated/";
-
-	public static string sharpKitGenFileFullDir { get { return jsDir + "/SharpKitGenerated"; }}
 	
-	public static string SharpkitGeneratedFilesAll = JSBindingSettings.jsDir + "/SharpKitGeneratedFilesAll.javascript";
 	public static string GeneratedFilesAll = JSBindingSettings.jsDir + "/GeneratedFilesAll.javascript";
-
-
-    /*
-     * Formula:
-     * All C# scripts - PathsNotToJavaScript + PathsToJavaScript = C# scripts to export to javascript
-     * see JSAnalyzer.MakeJsTypeAttributeInSrc for more information
-     */
-    public static string[] PathsNotToJavaScript = new string[]
-    {
-        "JSBinding/",
-        //"Stealth/",
-        "DaikonForge Tween (Pro)/",
-        "NGUI/",
-		"Scripts/Framework/"
-    };
-    public static string[] PathsToJavaScript = new string[]
-    {
-        "JSBinding/Samples/",
-        "JSBinding/JSImp/", // !!
-        "DaikonForge Tween (Pro)/Examples/Scripts",
-    };
-    /// <summary>
-    /// By default, menu
-    /// 
-    /// JSB | Check All Monos for all Prefabs and Scenes
-    /// JSB | Replace All Monos for all Prefabs and Scenes
-    /// 
-    /// handles all Prefabs and Scenes in whole project
-    /// add paths(directory or file name) to this array if you want to skip them
-    /// </summary>
-    public static string[] PathsNotToCheckOrReplace = new string[]
-    {
-        "JSBinding/",
-        "JSBinding/Prefabs/_JSEngine.prefab",
-        "Plugins/",
-        "Resources/",
-        "Src/",
-        "StreamingAssets/",
-        "UnityVS/",
-        "DaikonForge Tween (Pro)/",
-        "NGUI/",
-    };
 
 	/// <summary>
 	/// Gets the type serialized properties.

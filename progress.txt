@@ -7,3 +7,4 @@
 # 只要一个JSComponent
 # JSSerializer只支持一级
 # 不要SharpKitGeneratedFiles.javascript
+# ! GetComponent
