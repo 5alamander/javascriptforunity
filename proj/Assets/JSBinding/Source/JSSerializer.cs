@@ -304,27 +304,7 @@ public class JSSerializer : MonoBehaviour
 
 	static void SetObjectFieldOrProperty(int jsObjID, string name, int valueID)
 	{
-		if (name[0] == '#')
-		{
-			// Property
-
-			string funName = "set_" + name.Substring(1);
-			int funID = JSApi.getObjFunction(jsObjID, funName);
-			if (funID <= 0)
-			{
-				Debug.LogError("JSSerializer: Property fun " + funName + " not exist");
-				return;
-			}
-
-			JSApi.moveID2Arr(valueID, 0 /* index */);
-			// 特殊处理
-			JSApi.setCallFunctionValueRemoveArrS(false);
-			JSApi.callFunctionValue(jsObjID, funID, 1/* arg count*/);
-		}
-		else
-		{
-			// Field
-			JSApi.setProperty(jsObjID, name, valueID);
-		}
+		// Field
+		JSApi.setProperty(jsObjID, name, valueID);
 	}
 }
