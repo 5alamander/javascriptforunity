@@ -132,9 +132,6 @@ public class JSCache
                         isCSMonoBehaviour = false;
                     else if (type.Namespace != null && type.Namespace.IndexOf("UnityEngine") >= 0)
                         isCSMonoBehaviour = true;
-                    // This is useful if source c# file still exists in project
-                    else if (type.GetCustomAttributes(typeof(SharpKit.JavaScript.JsTypeAttribute), false).Length > 0)
-                        isCSMonoBehaviour = false;
                     else if (!typeof(MonoBehaviour).IsAssignableFrom(type))
                         isCSMonoBehaviour = false;
                     else

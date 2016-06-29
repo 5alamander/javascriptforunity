@@ -80,14 +80,14 @@ public class JSApi
      * ****************** Debugger stuff ****************** 
      */
 
-    [DllImport(JSDll, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-	public static extern void updateDebugger();
+//    [DllImport(JSDll, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+//	public static extern void updateDebugger();
 
-    [DllImport(JSDll, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    public static extern void cleanupDebugger();    
+//    [DllImport(JSDll, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+//    public static extern void cleanupDebugger();    
     
-    [DllImport(JSDll, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    public static extern void enableDebugger(string[] paths, UInt32 nums, int port);
+//    [DllImport(JSDll, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+//    public static extern void enableDebugger(string[] paths, UInt32 nums, int port);
 
     // only used in Constructors!
     [DllImport(JSDll, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]

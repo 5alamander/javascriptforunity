@@ -22,14 +22,6 @@ public class JSEngine : MonoBehaviour
     public static bool initFail { get { return initState == 2; } set { if (value) initState = 2; else initState = 0; } }
 
     /*
-     * Debug settings, if port is not available, try another one
-     */
-	public bool JSC = false;
-    public bool debug = true;
-    public int port = 5086;
-    bool mDebug = true;
-
-    /*
      * Garbage Collection setting
      * if GCInterval < 0, will not call GC (default value, SpiderMonkey will automatically call GC)
      * if GCInterval >= 0, will call GC every GCInterval seconds
@@ -47,7 +39,6 @@ public class JSEngine : MonoBehaviour
         /* 
          * Debugging is only available in desktop platform
          * */
-        mDebug = debug && JSC;
         if (bSuccess)
         {
             if (InitLoadScripts != null)
@@ -66,11 +57,6 @@ public class JSEngine : MonoBehaviour
 
             initSuccess = true;
             Debug.Log("JS: Init JSEngine OK");
-            if (mDebug)
-            {
-                Debug.Log("JS: Enable Debugger");
-                JSApi.enableDebugger(new string[] { JSBindingSettings.jsDir }, 1, port);
-            }
         }
         else
         {
@@ -120,7 +106,6 @@ public class JSEngine : MonoBehaviour
             return;
         }
 
-		Debug.Log (JSC ? "JS: Use JSC" : "JS: Not Use JSC");
         JSEngine.FirstInit(this);
     }
 
@@ -134,12 +119,6 @@ public class JSEngine : MonoBehaviour
         JSMgr.vCall.jsCallCount = 0;
 
         UpdateThreadSafeActions();
-
-        if (initSuccess)
-        {
-            if (mDebug)
-                JSApi.updateDebugger();
-        }
     }
 
     List<Action> lstThreadSafeActions = new List<Action>();
@@ -197,10 +176,6 @@ public class JSEngine : MonoBehaviour
     {
         if (this == JSEngine.inst)
         {
-            if (mDebug && initSuccess)
-            {
-                JSApi.cleanupDebugger();
-            }
             JSMgr.ShutdownJSEngine();
             JSEngine.inst = null;
             JSEngine.initState = 0;
