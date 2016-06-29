@@ -19,39 +19,6 @@ public class JSCache
 		// 没找到返回  Empty
 		return string.Empty;
 	}
-	// 从 MonoBehaviour2JSComponentName.javascript 加载
-	public static void InitMonoBehaviourJSComponentName()
-	{
-		dictMB2JSComName.Clear();
-		
-		int i = 0;
-		string str;
-		string[] arr;
-		
-		// 从JS逐个取出
-		while (true)
-		{
-			// 调用全局函数，使用 id 0
-			if (!JSMgr.vCall.CallJSFunctionName(0, "GetMonoBehaviourJSComponentName", i))
-				break;
-			
-			str = JSApi.getStringS((int)JSApi.GetType.JSFunRet);
-			if (string.IsNullOrEmpty(str))
-				break;
-			
-			arr = str.Split('|');
-			if (arr == null || arr.Length != 2)
-				break;
-			
-			//Debug.Log(arr[0] + "->" + arr[1]);
-			
-			dictMB2JSComName.Add(arr[0], arr[1]);
-			
-			i++;
-		}
-
-		Debug.Log ("JSCache.InitMonoBehaviourJSComponentName OK, total " + dictMB2JSComName.Count);
-	}
 
 	#endregion MonoBehaviour -> JSComponent Name
 
