@@ -118,8 +118,13 @@ function jsb_CallObjectCtor(name)
         if (obj)
             obj = obj[a];
     });
+    if (typeof(obj) == "function")
+        return new obj();
+    else
+        return undefined;
+    
     if (obj && obj.ctor) {
-        return new obj.ctor();
+        return new obj.ctor();        
     }
     return undefined;
 }

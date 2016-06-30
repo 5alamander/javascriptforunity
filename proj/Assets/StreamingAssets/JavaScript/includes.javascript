@@ -69,10 +69,6 @@ printArr = function (obj, name)
 }
 */
 
-CS.require("SharpKitGeneratedFiles");
-CS.require("MonoBehaviour2JSComponentName");
-
-
 // 4) JavaScript implemented
 // will overwrite some classes in step 1)
 //--------------------------------------------------
@@ -89,3 +85,15 @@ CS.require("SharpKit/myclrhandler");
 //--------------------------------------------------
 CS.require("ErrorHandler");
 
+CS.require("mb_def");
+
+
+// 2048 sample
+CS.require("2048/Official/grid");
+CS.require("2048/Official/tile");
+CS.require("2048/Official/game_manager");
+CS.require("2048/Modified/actuator");
+CS.require("2048/Modified/input_manager");
+CS.require("2048/Modified/storage");
+CS.require("2048/Modified/tilemovement");
+CS.require("2048/Modified/ui_controller");
