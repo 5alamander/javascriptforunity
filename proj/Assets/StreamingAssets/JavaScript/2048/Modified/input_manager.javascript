@@ -17,10 +17,6 @@ var InputManager = function () {
         }
     }
     
-    this.restart = function () {
-        print("restart");
-    }
-    
     this.keepPlaying = function () {
         //print("InputManager.keeyPlaying");
     }

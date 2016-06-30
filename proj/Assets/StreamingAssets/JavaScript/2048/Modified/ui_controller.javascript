@@ -8,6 +8,9 @@ define_mb("UIController", function() {
     // text
     this.oScore = null;
     this.oBestScore = null;
+
+    // button
+    this.oNewGame = null;
     
     var size = 4;    
     var uiTiles = [];
@@ -20,7 +23,8 @@ define_mb("UIController", function() {
     var createUITile = function (trans, text) {
         var t = {
             trans: trans,
-            text: text,
+            text: trans.GetComponentInChildren$1(UnityEngine.UI.Text.ctor),
+            image: trans.GetComponent$1(UnityEngine.UI.Image.ctor),
             
             clearText: function () {
                 this.text.set_text("");
@@ -28,10 +32,15 @@ define_mb("UIController", function() {
             
             setValue: function(v) {
                 this.text.set_text(v.toString());
+                this.setVisible(true);
             },
             
             moveFrom: function (fromPos) {
                 this.movement.moveFrom(fromPos);
+            },
+
+            setVisible: function (visible) {
+                this.image.set_enabled(visible);
             }
         };
         
@@ -51,6 +60,7 @@ define_mb("UIController", function() {
     this.clearUITiles = function () {
         for (var i = 0; i < uiTiles.length; i++) {
             uiTiles[i].clearText();
+            uiTiles[i].setVisible(false);
         }
     }
     
@@ -70,6 +80,11 @@ define_mb("UIController", function() {
         inputMgr = new InputManager();
         actuator = new Actuator(this);
         storageMgr = new UnityStorageManager();
+
+        // 
+        this.oNewGame.get_onClick().AddListener$$UnityAction(function () {
+            inputMgr.emit("restart");
+        });
         
         // start game
         gameManager = new GameManager(size, inputMgr, actuator, storageMgr);
