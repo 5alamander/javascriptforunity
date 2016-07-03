@@ -15,7 +15,7 @@ define_mb("TileMovement", function () {
                 this.trans.get_position(),
                 this.toPos,
                 $cv,
-                0.1);
+                0.07);
 
         this.trans.set_position(newPos);
 

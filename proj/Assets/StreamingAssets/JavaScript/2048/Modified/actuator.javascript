@@ -71,10 +71,10 @@ var Actuator = function (ui) {
     }
     
     this.message = function (won) {
-        var type    = won ? "game-won" : "game-over";
-        var message = won ? "You win!" : "Game over!"; 
+        //var type    = won ? "game-won" : "game-over";
+        //var message = won ? "You win!" : "Game over!";
 
-        print(message);
+        ui.showResult(won);
     }
     
     this.continueGame = function () { 

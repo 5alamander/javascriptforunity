@@ -84,6 +84,40 @@ define_mb("UIController", function() {
         trans.SetSiblingIndex(0);
         return createUITile(trans);
     }
+
+    var btn_helper = function (parent, path, active, cb) {
+        var btn = parent.FindChild(path).GetComponent$1(UnityEngine.UI.Button.ctor);
+        btn.get_gameObject().SetActive(active);
+        if (active) {
+            btn.get_onClick().RemoveAllListeners();
+            btn.get_onClick().AddListener$$UnityAction(cb);
+        }
+    }
+
+    this.oMsgBox = null;
+    this.showResult = function (win) {
+        this.oMsgBox.SetActive(true);
+
+        var trans = this.oMsgBox.get_transform();
+
+        var msg = trans.FindChild("Message").GetComponent$1(UnityEngine.UI.Text.ctor);
+        msg.set_text(win ? "You won!" : "Game over!");
+
+        btn_helper(trans, "NewGameButton", win, function () {
+            this.oMsgBox.SetActive(false);
+            inputMgr.emit("restart");
+        }.bind(this));
+
+        btn_helper(trans, "ContinuePlayButton", win, function () {
+            this.oMsgBox.SetActive(false);
+            inputMgr.emit("keepPlaying");
+        }.bind(this));
+
+        btn_helper(trans, "RetryButton", !win, function () {
+            this.oMsgBox.SetActive(false);
+            inputMgr.emit("restart");
+        }.bind(this));
+    }
     
     this.Start = function () {
         // init ui tiles
