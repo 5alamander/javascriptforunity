@@ -96,7 +96,7 @@ var Actuator = function (ui) {
     }
     
     var lbs = null;
-    this.updateBestScore = function (score) { 
+    this.updateBestScore = function (score) {
         if (lbs == null || lbs != score) {
             if (lbs != null) {
                 var a = ui.oBestScore.GetComponent$1(UnityEngine.Animator.ctor);
