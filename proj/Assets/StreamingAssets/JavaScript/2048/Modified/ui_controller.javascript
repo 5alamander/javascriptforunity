@@ -142,11 +142,43 @@ define_mb("UIController", function() {
     }
     
     this.listen = function () {
-        for (var i = 0; i < keyCode.length; i++) {
-            if (UnityEngine.Input.GetKeyDown$$KeyCode(keyCode[i])) {
-                inputMgr.emit("move", keyCodeData[i]);
-                break;
+        if (UnityEngine.Application.get_isMobilePlatform()) {
+            var md = this.md = this.md || {};
+
+            var I = UnityEngine.Input;
+            if (I.get_touchCount() == 1) {
+                if (md.state == 2) {
+                    return;
+                }
+
+                var p = I.get_mousePosition();
+                if (md.state == 0) {
+                    md.initpos = p;
+                    md.state = 1;
+                } else {
+                    var dis = UnityEngine.Vector3.Distance(p, md.initpos);
+                    if (dis > 20) {
+                        var xd = Math.abs(p.x - md.initpos.x);
+                        var yd = Math.abs(p.y - md.initpos.y);
+                        if (xd > yd) {
+                            inputMgr.emit("move", p.x > md.initpos.x ? 1 : 3);
+                        } else {
+                            inputMgr.emit("move", p.y > md.initpos.y ? 0 : 2);
+                        }
+                        md.state = 2;
+                    }
+                }
+            } else {
+                md.state = 0;
             }
+        } else {
+            for (var i = 0; i < keyCode.length; i++) {
+                if (UnityEngine.Input.GetKeyDown$$KeyCode(keyCode[i])) {
+                    inputMgr.emit("move", keyCodeData[i]);
+                    break;
+                }
+            }
+
         }
     }
     
