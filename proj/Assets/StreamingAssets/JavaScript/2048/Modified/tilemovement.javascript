@@ -1,28 +1,38 @@
 define_mb("TileMovement", function () {
-    this.Start = function () {
+    this.Awake = function() {
         this.trans = this.get_transform();
-        this.originPos = this.trans.get_position();
     }
     
-    var moved = false;
+    this.moving = false;
     
     var $cv = { Value: UnityEngine.Vector3.get_zero() };
     this.Update = function () {
-        if (!moved) {
+        if (!this.moving) {
             return;
         }
     
-        this.trans.set_position(
-            UnityEngine.Vector3.SmoothDamp$$Vector3$$Vector3$$Vector3$$Single(
+        var newPos = UnityEngine.Vector3.SmoothDamp$$Vector3$$Vector3$$Vector3$$Single(
                 this.trans.get_position(),
-                this.originPos,
+                this.toPos,
                 $cv,
-                0.05)
-            );
+                0.1);
+
+        this.trans.set_position(newPos);
+
+        var dis = UnityEngine.Vector3.Distance(newPos, this.toPos);
+        if (dis < 0.001) {
+            this.moving = false;
+
+            if (this.destroyAfterFinish) {
+                UnityEngine.Object.Destroy$$Object(this.get_gameObject());
+            }
+        }
     }
     
-    this.moveFrom = function (fromPos) {
-        moved = true;
+    this.moveFromTo = function (fromPos, toPos, destroyAfterFinish) {
+        this.toPos = toPos;
+        this.destroyAfterFinish = destroyAfterFinish;
+        this.moving = true;
         this.trans.set_position(fromPos);
     }
 });

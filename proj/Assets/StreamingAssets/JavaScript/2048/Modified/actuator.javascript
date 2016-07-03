@@ -54,20 +54,20 @@ var Actuator = function (ui) {
         }
         
         else if (tile.mergedFrom) {
-            //tile.mergedFrom.forEach(function (merged) {
-                // this.addTile(merged);
+            tile.mergedFrom.forEach(function (merged) {
                 //print("merged from (" + merged.x + "," + merged.y + ") -> (" + tile.x + "," + tile.y + ")");
-            //});
-            // TODO
+                var tempUITile = ui.createTempUITile(tile.x, tile.y);
+                tempUITile.setValue(merged.value);
+                var previousUITile = ui.getUITile(merged.previousPosition.x, merged.previousPosition.y);
+                tempUITile.moveFromTo(previousUITile.originPos, uiTile.originPos, true);
+            });
             
-            uiTile.playScaleAnim();
+            uiTile.playMergedAnim();
         }
         
         else {
-            // TODO
+            uiTile.playBornAnim();
         }
-        
-        //this.clearUITiles(tile.x, tile.y, tile.value);
     }
     
     this.message = function (won) {
