@@ -915,11 +915,10 @@ public class CSRepresentedObject
         else 
             s_objCount++;
 
-        // !
-        // inc 之后 refCount 可能 > 1
-        // getCSObj 可能检查 WeakReference.Target == null，表明 ~CSRepresentedObject 未被调用
-        // 此时我们继续创建另一个 CSRepresentedObject 对象
-        // 那么 refCount 就会 > 1
+		// !
+		// refCount may > 1 after inc, because:
+		// WeakReference may == null in getCSObj, which means ~CSRepresentedObject has not been called yet
+		// we continue to create a new CSRepresentedObject, so refCount > 1
 
         //int refCount = 
             JSApi.incRefCount(jsObjID);
@@ -945,9 +944,6 @@ public class CSRepresentedObject
                 else
                     s_objCount--;
                         
-                // !
-                // 由于 refCount 可能 > 1，这里必须判断 refCount <= 0 才能 JSMgr.removeJSCSRel
-
                 int refCount = JSApi.decRefCount(jsObjID);
                 if (refCount <= 0)
                 {

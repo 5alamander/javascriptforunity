@@ -5,11 +5,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using jsval = JSApi.jsval;
 
-/// <summary>
-/// JSEngine represents a JavaScript Engine object
-/// In order to run JavaScript, there must be one and only one JSEngine object in the scene
-/// You can find JSEngine prefab at path 'JSBinding/_JSEngine.prefab'
-/// </summary>
+// Engine of JavaScript
+// There can only be 1 JSEngine instance in the scene
 public class JSEngine : MonoBehaviour
 {
     public static JSEngine inst;

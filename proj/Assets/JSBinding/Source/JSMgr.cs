@@ -318,15 +318,7 @@ public static class JSMgr
     public static JSDataExchangeMgr datax = new JSDataExchangeMgr();
 
 
-    /// <summary>
-    /// CSEntry: entry for javascript CS.Call
-    /// </summary>
-    /// <param name="iOP">The i op.</param>
-    /// <param name="slot">The slot.</param>
-    /// <param name="index">The index.</param>
-    /// <param name="isStatic">The is static.</param>
-    /// <param name="argc">The argc.</param>
-    /// <returns></returns>
+    // CSEntry: entry for javascript CS.Call
     [MonoPInvokeCallbackAttribute(typeof(JSApi.CSEntry))]
     static int CSEntry(int iOP, int slot, int index, int isStatic, int argc)
     {
@@ -377,14 +369,8 @@ public static class JSMgr
         return ret;
     }
 
-    /// <summary>
-    /// execute a JavaScript script
-    /// can only require a script once.
-    /// </summary>
-    /// <param name="cx">The cx.</param>
-    /// <param name="argc">The argc.</param>
-    /// <param name="vp">The vp.</param>
-    /// <returns></returns>
+    // execute a JavaScript script
+    // can only require a script once.
     [MonoPInvokeCallbackAttribute(typeof(JSApi.JSNative))]
     static bool require(IntPtr cx, uint argc, IntPtr vp)
     {

@@ -100,7 +100,7 @@ public partial class UnityEngineManual
             jsComp.jsClassName = typeString;
             jsComp.jsFail = false;
             jsComp.init(true);
-            jsComp.callAwake(); // 要调用 js 的 Awake
+            jsComp.callAwake();
 
             //JSApi.JSh_SetRvalObject(vc.cx, vc.vp, jsComp.jsObj);
             JSApi.setObject((int)JSApi.SetType.Rval, jsComp.GetJSObjID(false));

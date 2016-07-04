@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class JSCache
 {
 	#region MonoBehaviour Inheritance Relation
-	// 对继承关系做缓存
+	// cache inheritance relationship
 
 	static Dictionary<string, bool> dictClassInheritanceRel = new Dictionary<string, bool>();
 

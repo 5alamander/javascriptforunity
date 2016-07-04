@@ -764,39 +764,5 @@ public class JSBindingSettings
     public static string jsGeneratedDir { get { return jsDir + "/Generated"; } }
     // a file to save generated js file names
     public static string jsGeneratedFiles { get { return jsDir + "/GeneratedFiles" + jsExtension; } }
-    // 
     public static string csGeneratedDir = Application.dataPath + "/JSBinding/Generated";
-
-	/// <summary>
-	/// Gets the type serialized properties.
-	/// 如果想要序列化某个类的Property，则得在这里配置，否则不序列化。
-	/// </summary>
-	/// <returns>The type serialized properties.</returns>
-	public static PropertyInfo[] GetTypeSerializedProperties(Type type)
-	{
-		PropertyInfo[] infos = null;
-		if (type == typeof(AnimationCurve))
-		{
-			infos = new PropertyInfo[]
-			{
-				type.GetProperty("keys"),
-				type.GetProperty("postWrapMode"),
-				type.GetProperty("preWrapMode")
-			};
-		}
-		else if (type == typeof(Keyframe))
-		{
-			infos = new PropertyInfo[]
-			{
-				type.GetProperty("inTangent"),
-				type.GetProperty("outTangent"),
-				type.GetProperty("tangentMode"),
-				type.GetProperty("time"),
-				type.GetProperty("value")
-			};
-		}
-		if (infos == null)
-			infos = new PropertyInfo[0];
-		return infos;
-	}
 }

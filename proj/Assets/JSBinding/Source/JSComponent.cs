@@ -124,23 +124,28 @@ public class JSComponent : JSSerializer
     }
 
     //
-    // 有几个事情要做
+    // things to do:
     // A) initJS()
     // B) initSerializedData(jsObjID)
-    // C) callIfExist(idAwake);
+    // C) callIfExist(idAwake)
     //
-    // 不同时候要做的事情，假设有2个类 X 和 Y
-    // 1) 假设 X 类不被其他类所引用，则 X 类 Awake 时：A + B + C
-    // 2) 在 X 类 initSerializedData 时发现引用了 Y 类，而 Y 类的 Awake 还没有被调用，那么会马上调用 Y 类的 A（看 GetJSObjID 函数），之后 Y 类的 Awake 里：B + C
-    //    看 JSSerializer.GetGameObjectMonoBehaviourJSObj 函数
-    //    为什么第1步只调用Y的A，而不调B？因为那时候X类正在处理序列化，不想中间又穿插Y的序列化处理，也用不到
-    // 3) 在 AddComponent<X>() 时，我们知道他会调用 Awake()，但是此时由于 jsClassName 未被设置，所以会 jsFail=true，但紧接着我们又设置 jsFail=false，然后调用 init(true) 和 callAwake()，做的事情也是 A + B + C
-    //    看 Components.cs 里的 GameObject_AddComponentT1 函数
-    // 4) 在 GetComponent<X>() 时，如果 X 的 Awake() 还未调用，我们会调用 X 的 init(true)，他做了 A + B，之后 X 的 Awake() 再做 C
-    //    看 Components.cs 里的 help_searchAndRetCom 和 help_searchAndRetComs 函数
-    //
-    //
-    // 总结：以上那么多分类，做的事情其实就是，当一个类X要在Awake时去获取Y类组件，甚至访问Y类成员，如果此时Y类的Awake还没有调用，此时会得到undefined，那么我们只好先初始化一下Y类的JS对象。
+    // assume we have 2 classes X and Y
+    // case 1) if X is not referenced by other classes, during X.Awake(): A + B + C
+	//
+	// case 2) if a public variable of Y is found during X.initSerializedData(), Y.A() will be called immediately(see GetJSObjID). 
+	//         after that, during Y.Awake(): B + C
+	//
+	// case 3) what happens during AddComponent<X>()
+	//           i  X.Awake() -> jsFail == true because jsClassName is empty
+	//           ii manually set jsFail = false -> call init(true) and callAwake() (equals to A + B + C)
+	//
+	//        see GameObject_AddComponentT1 in Components.cs
+	//
+	// case 4) what happends during GetComponent<X>()
+	//         if X.Awake() is not called yet, we manually call X.init(true) (equals to A + B)
+	//         after that, during X.Awake(): C
+	//
+	//         see help_searchAndRetCom and help_searchAndRetComs in Components.cs
     // 
     public void init(bool callSerialize)
     {
