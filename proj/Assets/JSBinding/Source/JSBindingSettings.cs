@@ -759,17 +759,13 @@ public class JSBindingSettings
     // directory to save js files
     public static string jsDir = Application.streamingAssetsPath + "/JavaScript";
 	public static string jsRelDir = "Assets/StreamingAssets/JavaScript";
-    public static string mergedJsDir = Application.dataPath + "/../Temp/JavaScript_js";
 
     // directory to save generated js files (gen by JSGenerateor2)
-    public static string jsGeneratedDir{ get { return jsDir + "/Generated"; } }
+    public static string jsGeneratedDir { get { return jsDir + "/Generated"; } }
     // a file to save generated js file names
     public static string jsGeneratedFiles { get { return jsDir + "/GeneratedFiles" + jsExtension; } }
     // 
-    public static string csDir = Application.dataPath + "/JSBinding/CSharp";
     public static string csGeneratedDir = Application.dataPath + "/JSBinding/Generated";
-	
-	public static string GeneratedFilesAll = JSBindingSettings.jsDir + "/GeneratedFilesAll.javascript";
 
 	/// <summary>
 	/// Gets the type serialized properties.

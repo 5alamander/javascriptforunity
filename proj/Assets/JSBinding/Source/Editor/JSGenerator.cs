@@ -670,7 +670,7 @@ using UnityEngine;
 			}
 			sb.Append("\r\n");
 		}
-		File.WriteAllText(JSAnalyzer.GetAllExportedMembersFile(), sb.ToString());
+		File.WriteAllText(Application.dataPath + "/Temp/AllExportedMembers.txt", sb.ToString());
 
         Debug.Log("Generate JS Bindings OK. enum " + JSBindingSettings.enums.Length.ToString() + ", class " + JSBindingSettings.classes.Length.ToString());
     }

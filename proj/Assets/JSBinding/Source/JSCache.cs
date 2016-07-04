@@ -6,22 +6,6 @@ using System.Collections.Generic;
 
 public class JSCache
 {
-	#region MonoBehaviour -> JSComponent Name
-	// MonoBehaviour 对应的 JSComponent 名字
-	static Dictionary<string, string> dictMB2JSComName = new Dictionary<string,string>();
-
-	// 根据 脚本名获得JSComponent名
-	public static string GetMonoBehaviourJSComponentName(string monoBehaviourName)
-	{
-		string ret;
-		if (dictMB2JSComName.TryGetValue(monoBehaviourName, out ret))
-			return ret;
-		// 没找到返回  Empty
-		return string.Empty;
-	}
-
-	#endregion MonoBehaviour -> JSComponent Name
-
 	#region MonoBehaviour Inheritance Relation
 	// 对继承关系做缓存
 
