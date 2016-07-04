@@ -152,12 +152,13 @@ public static class JSMgr
     {
         shutDown = true;
 
-        /* 
-         * 在 Shutdown 时，先主动删除 CSRepresentedObject
-         * 现在已经没有必要再维护 id -> CSR.. 的关系了
-         * 移除后，CSR.. 有可能还被其他地方引用，所以在这个函数中调用C# GC，也不一定会调用到 CSR.. 的析构
-         * 后来在某个时刻析构被调用，在析构函数里有  removeJSCSRel ，那里会判断 round 是上一轮的所以忽略
-         */
+		//
+		// remove CSRepresentedObject first
+		// no need to maintain id -> CSRepresentedObject now
+		//
+		// after remove, CSRepresentedObject may still be referenced, and ~CSRepresentedObject may not be called
+		// some times later ~CSRepresentedObject is called -> removeJSCSRel -> round is ignored because it is last round
+		//
         List<int> keysToRemove = new List<int>();
         List<int> hashsToRemove = new List<int>();
         foreach (var KV in mDictionary1)
@@ -181,9 +182,6 @@ public static class JSMgr
             mDictionary2.Remove(h);
         }
 
-        //
-        // 并GC
-        //
         System.GC.Collect();
 
         int Count = mDictionary1.Count;
@@ -200,12 +198,11 @@ public static class JSMgr
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("After JSApi.ShutdownJSEngine: ");
         sb.Append("mDictionary1 count " + Count + " -> " + mDictionary1.Count + ", left elements(should only contain JSComponent):\n");
-        /*
-         * 到这里 mDictionary1 和 mDictionary2 应该只剩余 JSComponent 及其子类，原因是：
-         * 除了 JSComponent 外，其他东西都应该在 JSApi.ShutdownJSEngine(0) 后被移除（他里面调用了 JS_GC)
-         * 而 JSComponent 是没有垃圾回收回调的，他是在 OnDestroy 时从这2个字典里移除的
-         * 这时候可能他的 OnDestroy 还没有执行，所以这2个字典里还会有他们
-         */
+		//
+		// here, mDictionary1 and mDictionary2 should only contain JSComponent and his subclasses, because:
+		// everything should be removed after JSApi.ShutdownJSEngine(0) (it calls calls JS_GC)
+		// JSComponent is nomally be removed during OnDestroy, but his OnDestroy may not be called yet here
+		//
         List<int> Keys = new List<int>(mDictionary1.Keys);
         foreach (var K in Keys)
         {
@@ -457,8 +454,8 @@ public static class JSMgr
         }
     }
 
-    // round 用于标记 CSRepresentedObj 是属于上一轮的还是这一轮的
-    // id 可以用于判定JS对象是属于上一轮的还是这一轮的
+	// round is used to judge whether a CSRepresentedObject belongs to round or current round
+	// id can be used to judge where a javascript object belongs to last or current round
     public static void removeJSCSRel(int id, int round = 0)
     {
         // don't remove an ID belonging to previous round
@@ -467,9 +464,10 @@ public static class JSMgr
             JS_CS_Rel Rel;
 
             if (IsJSIDOld(id))
-            {   // 这个分支不分进入！
-                // 因为上一轮的理应在 ShutdownJSEngine 之后全部被回收
-                // 但这些代码留着也无防
+            {
+				// should not reach here!
+				// objects belongs to last round should be removed after ShutdownJSEngine
+				// we leave code here, anyway
                 if (mDictionary1_Old.TryGetValue(id, out Rel))
                 {
                     mDictionary1_Old.Remove(id);
@@ -516,11 +514,12 @@ public static class JSMgr
 //                    if (mDictionary1.ContainsKey(jsObjID))
 //                        Debug.LogError("ERROR: JSMgr.getCSObj WeakReference.Target == null");
 
-                    // 这里为什么这么做
-					// 这里先移除，返回值为null，外面自然会再添加
-                    // 更多细节请看 CSRepresentedObject 注释！
-                    // 这里唯一需要纠结一下的就是 round 参数，总是传 0 吧，现在已经不需要检查 round 是否是上一轮的
-                    // 而且在手机上跑的话也不可能出现遗留上一轮对象的问题，因为一共只有一轮
+					// why do this
+					// remove here and return null, so outside caller creates a new one
+					// see comments in CSRepresentedObject for more detail
+					//
+					// parameter round here is harmless
+
                     JSMgr.removeJSCSRel(jsObjID, 0 /* round TODO */);
                     JSMgr.removeJSFunCSDelegateRel(jsObjID);
                 }
