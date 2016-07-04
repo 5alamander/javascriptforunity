@@ -12,12 +12,9 @@ using System.Runtime.InteropServices;
 
 public static class CSGenerator
 {
-    // input
     static StringBuilder sb = null;
     public static Type type = null;
     public static string thisClassName = null;
-
-    static string tempFile = JSBindingSettings.jsDir + "/temp" + JSBindingSettings.jsExtension;
 
     public static void OnBegin()
     {
@@ -349,8 +346,7 @@ public static class CSGenerator
             ccbn.properties.Add(functionName);
         }
         return sb;
-    }
-    
+    }    
 
     public static StringBuilder BuildProperties(Type type, PropertyInfo[] properties, int[] propertiesIndex, ClassCallbackNames ccbn)
     {
@@ -1636,7 +1632,7 @@ using UnityEngine;
         }
     }
 
-    [MenuItem("JSB/Generate JS and CS Bindings", false, 1)]
+    [MenuItem("Assets/JSB/Gen Bindings", false, 1)]
     public static void GenerateJSCSBindings()
 	{
 		if (EditorApplication.isCompiling)

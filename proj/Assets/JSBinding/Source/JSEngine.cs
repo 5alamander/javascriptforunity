@@ -4,15 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using jsval = JSApi.jsval;
+
 /// <summary>
-/// JSEngine
-/// Represents a JavaScript Engine object
+/// JSEngine represents a JavaScript Engine object
 /// In order to run JavaScript, there must be one and only one JSEngine object in the scene
-/// You can find JSEngine prefab at path 'JSBinding/Prefabs/_JSEngine.prefab'
-/// 
-/// JSEngine must have a lower execution order than JSComponent.
-/// You can set script execution order by click menu Edit | Project Settings | Script Execution Order
-/// for example, set JSEngine to 400, set JSComponent to 500
+/// You can find JSEngine prefab at path 'JSBinding/_JSEngine.prefab'
 /// </summary>
 public class JSEngine : MonoBehaviour
 {
@@ -168,10 +164,6 @@ public class JSEngine : MonoBehaviour
         }
     }
 
-//     void OnApplicationQuit()
-//     {
-//         Debug.Log("OnApplicationQuit");
-//     }
     void OnDestroy()
     {
         if (this == JSEngine.inst)
@@ -185,8 +177,6 @@ public class JSEngine : MonoBehaviour
 
 	public bool showStatistics = true;
     public int guiX = 0;
-
-
 
     /// <summary>
     /// OnGUI: Output some statistics

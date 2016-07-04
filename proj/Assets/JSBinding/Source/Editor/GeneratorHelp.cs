@@ -4,9 +4,6 @@ using System.Collections;
 using System.Reflection;
 using System.Collections.Generic;
 
-/// <summary>
-/// 
-/// </summary>
 public static class GeneratorHelp
 {
     /// <summary>

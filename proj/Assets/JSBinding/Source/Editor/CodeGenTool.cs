@@ -117,44 +117,4 @@ namespace cg
             return this.Format(ArgsFormat.OnlyList);
         }
     }
-    
-    public class autotab
-    {
-        public static string Format(string str, int tab)
-        {
-            return "";
-        }
-    }
-    
-    public enum MemberType { 
-        CONSTRUCTOR,
-        FIELD,
-        PROPERTY,
-        METHOD,
-    }
-    
-    //     public class GenClassProcess
-    //     {
-    //         public static MemberType memberType = MemberType.CONSTRUCTOR;
-    //         public static bool isStatic = false;
-    // 
-    //         public void setFunctionName(string name) { 
-    // 
-    //         }
-    // 
-    //         public void setFunctionParamsCount(int needCount, int allCount) {
-    //             functionBodies = new FunctionBodyProcess[allCount - needCount + 1];
-    //             this.needParamCount = needCount;
-    //             this.allParamCount = allCount;
-    //         }
-    //         int needParamCount, allParamCount;
-    //         FunctionBodyProcess[] functionBodies = null;
-    //         FunctionBodyProcess functionBody { get { return functionBodies[0]; } }
-    //     }
-    public class FunctionBodyProcess
-    {
-        public StringBuilder sbPrepareMethod = new StringBuilder();
-        
-        public StringBuilder sbCallParams = new StringBuilder();
-    }
 }

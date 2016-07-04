@@ -50,7 +50,7 @@ public class JSDataExchangeMgr
     /// for concrete type e.g. setInt32 setString, they know how to return object
     /// 
     /// but for T parameters, type is unknown until runtime
-    /// so this function needs a 'Type' argument
+    /// so this function needs a type argument
     /// which is passed through mTempObj
     /// </summary>
     /// <param name="eType">Type of the e.</param>
