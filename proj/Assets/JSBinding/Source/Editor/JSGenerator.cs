@@ -625,7 +625,10 @@ using UnityEngine;
 			}
 			sb.Append("\r\n");
 		}
-		File.WriteAllText(Application_dataPath + "/Temp/AllExportedMembers.txt", sb.ToString());
+
+		string dir = Application_dataPath + "/Temp";
+		Directory.CreateDirectory(dir);
+		File.WriteAllText(dir + "/AllExportedMembers.txt", sb.ToString());
 
         Log("Generate JS Bindings OK. enum " + JSBindingSettings.enums.Length.ToString() + ", class " + JSBindingSettings.classes.Length.ToString());
     }
