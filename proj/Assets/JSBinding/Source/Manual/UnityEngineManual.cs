@@ -11,7 +11,7 @@ public partial class UnityEngineManual
 	static JSCache.TypeInfo typeInfo;
 
     static Dictionary<string, bool> dict = new Dictionary<string, bool>();
-    public static void initManual() 
+    public static void InitManual()
     {
         dict.Clear();
     }
@@ -27,7 +27,7 @@ public partial class UnityEngineManual
         return ret;
     }
 
-    public static void afterUse()
+    public static void AfterUse()
     {
         var sb = new StringBuilder();
         foreach (var v in dict)

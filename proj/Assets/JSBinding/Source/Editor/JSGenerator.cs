@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
+﻿using System;
 using System.Text;
 using System.Reflection;
 using System.Collections.Generic;
@@ -8,9 +6,10 @@ using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
 
-
 public static class JSGenerator
 {
+	public static Action<string> Log, LogError;
+	public static string Application_dataPath;
     // input
     static StringBuilder sb = null;
     public static Type type = null;
@@ -39,7 +38,7 @@ public static class JSGenerator
 //        }
 
 		// clear generated enum files
-		W = OpenFile(JSBindingSettings.jsGeneratedFiles, false);
+		W = OpenFile(JSBindingSettings.jsGenFiles, false);
 		W.Write("this.Enum = {};\n");
     }
     public static void OnEnd()
@@ -616,20 +615,11 @@ using UnityEngine;
 //         Debug.Log("Generate JS Enum Bindings finish. total = " + JSBindingSettings.enums.Length.ToString());
 //     }
 
-    /* 
-     * Some classes have another name
-     * for example: js has 'Object'
-     */
     public static Dictionary<Type, string> typeClassName = new Dictionary<Type, string>();
     static string className = string.Empty;
 
-
-    //[MenuItem("JSBinding/Generate JS Bindings")]
-    public static void GenerateClassBindings()
+    public static void GenBindings()
     {
-//         if (!typeClassName.ContainsKey(typeof(UnityEngine.Object)))
-//             typeClassName.Add(typeof(UnityEngine.Object), "UnityObject");
-
         JSGenerator.OnBegin();
 
         // enums
@@ -670,8 +660,8 @@ using UnityEngine;
 			}
 			sb.Append("\r\n");
 		}
-		File.WriteAllText(Application.dataPath + "/Temp/AllExportedMembers.txt", sb.ToString());
+		File.WriteAllText(Application_dataPath + "/Temp/AllExportedMembers.txt", sb.ToString());
 
-        Debug.Log("Generate JS Bindings OK. enum " + JSBindingSettings.enums.Length.ToString() + ", class " + JSBindingSettings.classes.Length.ToString());
+        Log("Generate JS Bindings OK. enum " + JSBindingSettings.enums.Length.ToString() + ", class " + JSBindingSettings.classes.Length.ToString());
     }
 }

@@ -11,6 +11,14 @@ using SharpKit.JavaScript;
 
 public class JSBindingSettings
 {
+	public static string jsExtension = ".javascript";
+	public static string jsDir = Application.streamingAssetsPath + "/JavaScript";
+	public static string jsRelDir = "Assets/StreamingAssets/JavaScript";
+	
+	public static string jsGenDir { get { return jsDir + "/Generated"; } }
+	public static string jsGenFiles { get { return jsDir + "/GeneratedFiles" + jsExtension; } }
+	public static string csGenDir = Application.dataPath + "/JSBinding/Generated";
+
     public static Type[] enums = new Type[]
     {
 
@@ -754,15 +762,94 @@ public class JSBindingSettings
         }
     }
 
-    // extension (including ".")
-    public static string jsExtension = ".javascript";
-    // directory to save js files
-    public static string jsDir = Application.streamingAssetsPath + "/JavaScript";
-	public static string jsRelDir = "Assets/StreamingAssets/JavaScript";
-
-    // directory to save generated js files (gen by JSGenerateor2)
-    public static string jsGeneratedDir { get { return jsDir + "/Generated"; } }
-    // a file to save generated js file names
-    public static string jsGeneratedFiles { get { return jsDir + "/GeneratedFiles" + jsExtension; } }
-    public static string csGeneratedDir = Application.dataPath + "/JSBinding/Generated";
+	public static bool CheckClassBindings(Type[] types)
+	{
+		Dictionary<Type, bool> clrLibrary = new Dictionary<Type, bool>();
+		{
+			//
+			// these types are defined in clrlibrary.javascript
+			//
+			clrLibrary.Add(typeof(System.Object), true);
+			clrLibrary.Add(typeof(System.Exception), true);
+			clrLibrary.Add(typeof(System.SystemException), true);
+			clrLibrary.Add(typeof(System.ValueType), true);
+		}
+		
+		Dictionary<Type, bool> dict = new Dictionary<Type, bool>();
+		var sb = new StringBuilder();
+		bool ret = true;
+		
+		// can not export a type twice
+		foreach (var type in types)
+		{
+			if (typeof(System.Delegate).IsAssignableFrom(type))
+			{
+				sb.AppendFormat("\"{0}\" Delegate can not be exported.\n",
+				                JSNameMgr.GetTypeFullName(type));
+				ret = false;
+			}
+			
+			if (type.IsGenericType && !type.IsGenericTypeDefinition)
+			{
+				sb.AppendFormat(
+					"\"{0}\" is not allowed. Try \"{1}\".\n",
+					JSNameMgr.GetTypeFullName(type), JSNameMgr.GetTypeFullName(type.GetGenericTypeDefinition()));
+				ret = false;
+			}
+			
+			if (dict.ContainsKey(type))
+			{
+				sb.AppendFormat(
+					"Operation fail. There are more than 1 \"{0}\" in JSBindingSettings.classes, please check.\n",
+					JSNameMgr.GetTypeFullName(type));
+				ret = false;
+			}
+			else
+			{
+				dict.Add(type, true);
+			}
+		}
+		
+		// Is BaseType exported?
+		foreach (var typeb in dict)
+		{
+			Type type = typeb.Key;
+			Type baseType = type.BaseType;
+			if (baseType == null) { continue;  }
+			if (baseType.IsGenericType) baseType = baseType.GetGenericTypeDefinition();
+			// System.Object is already defined in SharpKit clrlibrary
+			if (!clrLibrary.ContainsKey(baseType) && !dict.ContainsKey(baseType))
+			{
+				sb.AppendFormat("\"{0}\"\'s base type \"{1}\" must also be in JSBindingSettings.classes.\n",
+				                JSNameMgr.GetTypeFullName(type),
+				                JSNameMgr.GetTypeFullName(baseType));
+				ret = false;
+			}
+			
+			// 检查 interface 有没有配置		
+			Type[] interfaces = type.GetInterfaces();
+			for (int i = 0; i < interfaces.Length; i++)
+			{
+				Type ti = interfaces[i];
+				
+				string tiFullName = JSNameMgr.GetTypeFullName(ti);
+				
+				// 这个检查有点奇葩
+				// 有些接口带 <>，这里直接忽略，不检查他
+				if (!tiFullName.Contains("<") && tiFullName.Contains(">") && 
+				    !clrLibrary.ContainsKey(ti) && !dict.ContainsKey(ti))
+				{
+					sb.AppendFormat("\"{0}\"\'s interface \"{1}\" must also be in JSBindingSettings.classes.\n",
+                                    JSNameMgr.GetTypeFullName(type),
+                                    JSNameMgr.GetTypeFullName(ti));
+                    ret = false;
+                }
+            }
+        }
+        if (!ret)
+        {
+            Debug.LogError(sb);
+        }
+        return ret;
+    }
 }

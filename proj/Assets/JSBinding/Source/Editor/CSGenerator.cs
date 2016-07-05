@@ -1,28 +1,26 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
+﻿using System;
 using System.Text;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
-using UnityEngine.SocialPlatforms;
-using System.Runtime.InteropServices;
 
 public static class CSGenerator
 {
-    static StringBuilder sb = null;
-    public static Type type = null;
-    public static string thisClassName = null;
+	public static Action<string> Log, LogError;
+
+    static StringBuilder sb;
+    public static Type type;
+    public static string thisClassName;
 
     public static void OnBegin()
     {
         GeneratorHelp.ClearTypeInfo();
 
-        if (Directory.Exists(JSBindingSettings.csGeneratedDir))
+        if (Directory.Exists(JSBindingSettings.csGenDir))
         {
-            string[] files = Directory.GetFiles(JSBindingSettings.csGeneratedDir);
+            string[] files = Directory.GetFiles(JSBindingSettings.csGenDir);
             for (int i = 0; i < files.Length; i++)
             {
                 File.Delete(files[i]);
@@ -30,7 +28,7 @@ public static class CSGenerator
         }
         else
         {
-            Directory.CreateDirectory(JSBindingSettings.csGeneratedDir);
+            Directory.CreateDirectory(JSBindingSettings.csGenDir);
         }
     }
     public static void OnEnd()
@@ -473,7 +471,7 @@ public static class CSGenerator
                 }
                 else
                 {
-                    Debug.Log(type.Name + "." + property.Name + " 'get' is ignored because it's not public.");
+					Log(type.Name + "." + property.Name + " 'get' is ignored because it's not public.");
                 }
             }
             if (!bReadOnly)
@@ -574,7 +572,7 @@ public static class CSGenerator
         else if (methodName == "op_Implicit")
             strCall = "(" + JSNameMgr.GetTypeFullName(returnType) + ")" + paramHandlers[0].argName;
         else
-            Debug.LogError("Unknown special name: " + methodName);
+            LogError("Unknown special name: " + methodName);
 
         string ret = JSDataExchangeEditor.Get_Return(returnType, strCall);
         sb.Append("    " + ret);
@@ -1250,53 +1248,14 @@ public class CSharpGenerated
 
         sb.Replace("\r\n", "\n");
 
-        string fileName = JSBindingSettings.csGeneratedDir + "/" + "CSharpGenerated.cs";
+        string fileName = JSBindingSettings.csGenDir + "/" + "CSharpGenerated.cs";
         var writer2 = OpenFile(fileName, false);
         writer2.Write(sb.ToString());
         writer2.Close();
     }
-//    public static void GenerateAllJSFileNames2()
-//    {
-////         if (!JSGenerator2.typeClassName.ContainsKey(typeof(UnityEngine.Object)))
-////             JSGenerator2.typeClassName.Add(typeof(UnityEngine.Object), "UnityObject");
-//
-//        string fmt = @"
-//public class JSGeneratedFileNames
-//[[
-//    public static string[] names = new string[]
-//    [[
-//{0}
-//    ]];
-//]]
-//";
-//        StringBuilder sbA = new StringBuilder();
-//        for (int i = 0; i < JSBindingSettings.classes.Length; i++)
-//        {
-//            string name = JSNameMgr.GetTypeFileName(JSBindingSettings.classes[i]).Replace('.', '_');
-//            if (JSGenerator.typeClassName.ContainsKey(JSBindingSettings.classes[i]))
-//                name = JSGenerator.typeClassName[JSBindingSettings.classes[i]];
-//            sbA.AppendFormat("        \"{0}\",\n", name);
-//        }
-//        StringBuilder sb = new StringBuilder();
-//        sb.AppendFormat(fmt, sbA);
-//        HandleStringFormat(sb);
-//
-//        sb.Replace("\r\n", "\n");
-//
-//        string fileName = JSBindingSettings.csGeneratedDir + "/" + "AllJSFileNames.cs";
-//        var writer2 = OpenFile(fileName, false);
-//        writer2.Write(sb.ToString());
-//        writer2.Close();
-//    }
 
     public static void GenerateClass()
     {
-        /*if (type.IsInterface)
-        {
-            Debug.Log("Interface: " + type.ToString() + " ignored.");
-            return;
-        }*/
-
         GeneratorHelp.ATypeInfo ti;
         /*int slot = */
         GeneratorHelp.AddTypeInfo(type, out ti);
@@ -1370,7 +1329,7 @@ public class {0}
 
         sbFile.Replace("\r\n", "\n");
 
-        string fileName = JSBindingSettings.csGeneratedDir + "/" +
+        string fileName = JSBindingSettings.csGenDir + "/" +
             JSNameMgr.GetTypeFileName(type) + 
             "Generated.cs";
         var writer2 = OpenFile(fileName, false);
@@ -1410,164 +1369,8 @@ using UnityEngine;
         sb.Replace("'", "\"");
     }
 
-    /* 
-     * Some classes have another name
-     * for example: js has 'Object'
-     */
-    public static bool CheckClassBindings()
+    public static void GenBindings()
     {
-        Dictionary<Type, bool> clrLibrary = new Dictionary<Type, bool>();
-        {
-            //
-            // these types are defined in clrlibrary.javascript
-            //
-            clrLibrary.Add(typeof(System.Object), true);
-            clrLibrary.Add(typeof(System.Exception), true);
-            clrLibrary.Add(typeof(System.SystemException), true);
-            clrLibrary.Add(typeof(System.ValueType), true);
-        }
-
-        Dictionary<Type, bool> dict = new Dictionary<Type, bool>();
-        var sb = new StringBuilder();
-        bool ret = true;
-
-        // can not export a type twice
-        foreach (var type in JSBindingSettings.classes)
-        {
-            if (typeof(System.Delegate).IsAssignableFrom(type))
-            {
-                sb.AppendFormat("\"{0}\" Delegate can not be exported.\n",
-                    JSNameMgr.GetTypeFullName(type));
-                ret = false;
-            }
-
-            if (type.IsGenericType && !type.IsGenericTypeDefinition)
-            {
-                sb.AppendFormat(
-                    "\"{0}\" is not allowed. Try \"{1}\".\n",
-                    JSNameMgr.GetTypeFullName(type), JSNameMgr.GetTypeFullName(type.GetGenericTypeDefinition()));
-                ret = false;
-            }
-
-            if (dict.ContainsKey(type))
-            {
-                sb.AppendFormat(
-                    "Operation fail. There are more than 1 \"{0}\" in JSBindingSettings.classes, please check.\n",
-                    JSNameMgr.GetTypeFullName(type));
-                ret = false;
-            }
-            else
-            {
-                dict.Add(type, true);
-            }
-        }
-
-        // Is BaseType exported?
-        foreach (var typeb in dict)
-        {
-            Type type = typeb.Key;
-            Type baseType = type.BaseType;
-            if (baseType == null) { continue;  }
-            if (baseType.IsGenericType) baseType = baseType.GetGenericTypeDefinition();
-            // System.Object is already defined in SharpKit clrlibrary
-            if (!clrLibrary.ContainsKey(baseType) && !dict.ContainsKey(baseType))
-            {
-                sb.AppendFormat("\"{0}\"\'s base type \"{1}\" must also be in JSBindingSettings.classes.\n",
-                    JSNameMgr.GetTypeFullName(type),
-                    JSNameMgr.GetTypeFullName(baseType));
-                ret = false;
-            }
-
-			// 检查 interface 有没有配置		
-			Type[] interfaces = type.GetInterfaces();
-			for (int i = 0; i < interfaces.Length; i++)
-			{
-				Type ti = interfaces[i];
-
-				string tiFullName = JSNameMgr.GetTypeFullName(ti);
-
-				// 这个检查有点奇葩
-				// 有些接口带 <>，这里直接忽略，不检查他
-				if (!tiFullName.Contains("<") && tiFullName.Contains(">") && 
-				    !clrLibrary.ContainsKey(ti) && !dict.ContainsKey(ti))
-				{
-					sb.AppendFormat("\"{0}\"\'s interface \"{1}\" must also be in JSBindingSettings.classes.\n",
-					                JSNameMgr.GetTypeFullName(type),
-					                JSNameMgr.GetTypeFullName(ti));
-					ret = false;
-				}
-			}
-
-//             foreach (var Interface in type.GetInterfaces())
-//             {
-//                 if (!dict.ContainsKey(Interface))
-//                 {
-//                     sb.AppendFormat("Interface \"{0}\" of \"{1}\" must also be in JSBindingSettings.classes.",
-//                         JSNameMgr.GetTypeFullName(Interface),
-//                         JSNameMgr.GetTypeFullName(type));
-//                     Debug.LogError(sb);
-//                     return false;
-//                 }
-            //             }
-        }
-        if (!ret)
-        {
-            Debug.LogError(sb);
-        }
-        return ret;
-    }
-
-    //[MenuItem("JSBinding/Generate CS Bindings")]
-    public static void GenerateClassBindings()
-    {
-//         typeClassName.Add(typeof(UnityEngine.Object), "UnityObject");
-
-//         Type t = typeof(Dictionary<int,string>);
-//         Debug.Log(t);
-//         Debug.Log(t.Name);
-//         Debug.Log(t.FullName);
-//         Debug.Log(t.ToString());
-//         Type tD = t.GetGenericTypeDefinition();
-//         Debug.Log(tD);
-//         Debug.Log(tD.Name);
-//         Debug.Log(tD.FullName);
-//         Debug.Log(tD.ToString());
-        //int op = 1;
-        //object oj = op;
-        //Debug.Log(GetTypeFullName(typeof(bool).MakeByRefType()));
-        //MakeJJJ(ref oj);
-//         {
-//             Type t = typeof(GameObject);
-//             MethodInfo[] methods = t.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
-//             for (int i = 0; i < methods.Length; i++ )
-//             {
-//                 MethodInfo method = methods[i];
-//                 if (method.Name != "AddComponent" || method.IsGenericMethod || method.IsGenericMethodDefinition)
-//                     continue;
-// 
-//                 ParameterInfo[] ps = method.GetParameters();
-//                 bool b1 = ps[0].ParameterType.IsGenericParameter;
-//                 bool b2 = ps[0].ParameterType.IsGenericType;
-//                 bool b3 = ps[0].ParameterType.IsGenericTypeDefinition;
-//                 Type[] ga = ps[0].ParameterType.GetGenericArguments();
-//                 Debug.Log(b1.ToString() + b2.ToString() + b3.ToString());
-//             }
-//         }
-        //return;
-// 
-
-        /*Type t = typeof(Kekoukele);
-        FieldInfo[] fields = t.GetFields(BindingFlags.Public | BindingFlags.GetField | BindingFlags.SetField | BindingFlags.Instance | BindingFlags.Static);
-		for (int i = 0; i < fields.Length; i++)
-		{
-			// if ( typeof(System.Delegate).IsAssignableFrom(fields[i].FieldType))
-            if (fields[i].FieldType.BaseType == typeof(System.MulticastDelegate))
-			{
-				Debug.Log (fields[i].FieldType.ToString () + " is delegate!"); 
-			}
-		}
-        return;*/
-
         CSGenerator.OnBegin();
 
         allClassCallbackNames = null;
@@ -1584,84 +1387,8 @@ using UnityEngine;
 
         CSGenerator.OnEnd();
 
-        Debug.Log("Generate CS Bindings OK. total = " + JSBindingSettings.classes.Length.ToString());
+		Log("Generate CS Bindings OK. total = " + JSBindingSettings.classes.Length.ToString());
     }
-
-    public static void OuputGameObjectHierachy(StringBuilder sb, GameObject go, int tab)
-    {
-        for (var t = 0; t < tab; t++)
-            sb.Append("    ");
-        sb.Append(go.name + "  (");
-
-        var coms = go.GetComponents(typeof(Component));
-        for (var c = 0; c < coms.Length; c++)
-        {
-            sb.Append(coms[c].GetType().Name);
-            if (c != coms.Length - 1)
-            {
-                sb.Append(" | ");
-            }
-        }
-        sb.Append(")\n");
-
-        var childCount = go.transform.childCount;
-        for (var i = 0; i < childCount; i++)
-        {
-            Transform child = go.transform.GetChild(i);
-            OuputGameObjectHierachy(sb, child.gameObject, tab + 1);
-        }
-    }
-
-    [MenuItem("Assets/JSB/Gen Bindings", false, 1)]
-    public static void GenerateJSCSBindings()
-	{
-		if (EditorApplication.isCompiling)
-		{
-			
-			EditorUtility.DisplayDialog("Tip:",
-			                            "please wait EditorApplication Compiling",
-			                            "OK"
-			                            );
-			return; 
-		}
-
-
-		if (!CheckClassBindings())
-            return;
-
-
-        bool bContinue;
-        bContinue = EditorUtility.DisplayDialog("TIP",
-             "Files in these directories will all be deleted and re-created: \n" + 
-              //JSBindingSettings.jsGeneratedDir + "\n" + 
-              JSBindingSettings.csGeneratedDir + "\n",
-             "OK",
-             "Cancel");
-        if (!bContinue)
-        {
-            Debug.Log("Operation cancelled"); ;
-            return;
-        }
-
-        JSDataExchangeEditor.reset();
-        UnityEngineManual.initManual();
-        CSGenerator.GenerateClassBindings();
-        JSGenerator.GenerateClassBindings();
-        UnityEngineManual.afterUse();
-
-        // TODO
-        // should not be here
-//         bContinue = EditorUtility.DisplayDialog("TIP",
-//              "Also correct JavaScript yield code?\n(Choose 'Yes' if you have coroutine code)",
-//              "Yes",
-//              "No");
-//         if (bContinue)
-//         {
-//             JSAnalyzer.CorrectJavaScriptYieldCode();
-//         }
-
-        AssetDatabase.Refresh();
-    }    
 
     public static void Type2TypeFlag(Type type, cg.args argFlag)
     {
