@@ -72,7 +72,7 @@ MonoBehaviour:
   jsLoader: {fileID: 11400002}
   InitLoadScripts:
   - includes
-  showStatistics: 1
+  showStatistics: 0
   guiX: 0
 --- !u!114 &11400002
 MonoBehaviour:

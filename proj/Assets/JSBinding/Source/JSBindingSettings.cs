@@ -15,8 +15,7 @@ public class JSBindingSettings
 	public static string jsDir = Application.streamingAssetsPath + "/JavaScript";
 	public static string jsRelDir = "Assets/StreamingAssets/JavaScript";
 	
-	public static string jsGenDir { get { return jsDir + "/Generated"; } }
-	public static string jsGenFiles { get { return jsDir + "/GeneratedFiles" + jsExtension; } }
+	public static string jsGenFiles { get { return jsDir + "/Lib/Gen" + jsExtension; } }
 	public static string csGenDir = Application.dataPath + "/JSBinding/Generated";
 
     public static Type[] enums = new Type[]
