@@ -21,7 +21,7 @@ public class JSBindingSettings
 
     public static Type[] enums = new Type[]
     {
-
+		typeof(KeyCode),
     };
 	    
     public static Type[] classes = new Type[]

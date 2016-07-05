@@ -39,7 +39,6 @@ public static class JSGenerator
 
 		// clear generated enum files
 		W = OpenFile(JSBindingSettings.jsGenFiles, false);
-		W.Write("this.Enum = {};\n");
     }
     public static void OnEnd()
     {
@@ -529,26 +528,9 @@ _jstype.staticDefinition.{1} = function({2}) [[
     static void GenerateEnum()
     {
         var sb = new StringBuilder();
+		string fullName = type.FullName.Replace('+', '.');
 
-        // comment line
-        string fmtComment = @"// {0}
-";
-        sb.AppendFormat(fmtComment, type.ToString());
-
-        // remove name space
-        string typeName = type.ToString();
-        int lastDot = typeName.LastIndexOf('.');
-        if (lastDot >= 0)
-        {
-            typeName = typeName.Substring(lastDot + 1);
-        }
-
-        if (typeName.IndexOf('+') >= 0)
-            return;
-
-        string fmt = "this.Enum.{0} = [[\n";
-        sb.AppendFormat(fmt, typeName);
-
+		sb.AppendFormat("{0} = [[\n", fullName);
 
         FieldInfo[] fields = type.GetFields(BindingFlags.GetField | BindingFlags.Public | BindingFlags.Static);
         string fmtField = "    {0}: {1}{2}\n";
@@ -597,23 +579,6 @@ using UnityEngine;
         sb.Replace("]]", "}");
         sb.Replace("'", "\"");
     }
-
-//     [MenuItem("JS for Unity/Generate JS Enum Bindings")]
-//     public static void GenerateEnumBindings()
-//     {
-    //         JSGenerator2.OnBegin();
-// 
-//         for (int i = 0; i < JSBindingSettings.enums.Length; i++)
-//         {
-    //             JSGenerator2.Clear();
-    //             JSGenerator2.type = JSBindingSettings.enums[i];
-    //             JSGenerator2.GenerateEnum();
-//         }
-// 
-    //         JSGenerator2.OnEnd();
-// 
-//         Debug.Log("Generate JS Enum Bindings finish. total = " + JSBindingSettings.enums.Length.ToString());
-//     }
 
     public static Dictionary<Type, string> typeClassName = new Dictionary<Type, string>();
     static string className = string.Empty;
