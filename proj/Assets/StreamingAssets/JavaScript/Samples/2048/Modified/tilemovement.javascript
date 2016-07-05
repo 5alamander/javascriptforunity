@@ -1,4 +1,4 @@
-define_mb("TileMovement", function () {
+jss.define_mb("TileMovement", function () {
     this.Awake = function() {
         this.trans = this.get_transform();
     }

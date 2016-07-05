@@ -6,4 +6,4 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/JSBinding/2048/2048.unity
+    path: Assets/JSBinding/Samples/2048/2048.unity

@@ -1,6 +1,6 @@
 var gameManager = null;
 
-define_mb("UIController", function() {
+jss.define_mb("UIController", function() {
     "use strict",
 
     // gameObject
@@ -45,8 +45,8 @@ define_mb("UIController", function() {
         };
         
         t.originPos = t.trans.get_position();
-        t.movement = t.trans.GetComponent$1(s.TileMovement);
-        t.animator = t.trans.GetComponent$1(UnityEngine.Animator.ctor);
+        t.movement = t.trans.GetComponent$1(jss.TileMovement);
+        t.animator = t.trans.GetComponent$1(UE.Animator.ctor);
         t.animator.set_enabled(false);
         
         t.playMergedAnim = function () {

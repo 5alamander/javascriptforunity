@@ -80,3 +80,6 @@ CS.require("Samples/2048/Modified/input_manager");
 CS.require("Samples/2048/Modified/storage");
 CS.require("Samples/2048/Modified/tilemovement");
 CS.require("Samples/2048/Modified/ui_controller");
+
+// misc sample
+CS.require("Samples/Misc/Misc");

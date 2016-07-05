@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &736965
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &51444337
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &111996653
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.UIController
+  jsClassName: jss.UIController
   arrString:
   - oTileRoot/0
   - oScore/1
@@ -705,7 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &277940726
@@ -943,7 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &390046156
@@ -1204,7 +1204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &620325133
@@ -1441,7 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &983095159
@@ -1543,7 +1543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &1117885499
@@ -1753,7 +1753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &1162019037
@@ -1887,7 +1887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &1179528104
@@ -2592,7 +2592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &1585997602
@@ -2726,7 +2726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &1594371843
@@ -2964,7 +2964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &1819754009
@@ -3098,7 +3098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &1825470432
@@ -3408,7 +3408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &1972659625
@@ -3607,7 +3607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b59d8e106685240b389eb84622a68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsClassName: s.TileMovement
+  jsClassName: jss.TileMovement
   arrString: []
   arrObject: []
 --- !u!114 &2078948238
