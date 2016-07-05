@@ -2,10 +2,6 @@
 // 反正是用于做一些事情！
 // 看一下这里面包含的函数
 
-
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
-
 if (typeof(window) == 'undefined')
     var window = this;
 	
@@ -55,5 +51,5 @@ var JSComponentUtil = {
 		}
     }
 };
-JsTypes.push(JSComponentUtil);
+jst_pushOrReplace(JSComponentUtil);
 

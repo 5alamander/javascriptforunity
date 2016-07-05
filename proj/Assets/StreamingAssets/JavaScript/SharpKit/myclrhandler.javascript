@@ -1,15 +1,6 @@
-/*
-*
-* JSRepresentedObject
-* to represent C# object whose type is unknown to JS
-* currently, it is only used to represent C# delegate objects, which only exists in C#, and are only available in C#
-*
-*/
-
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
-
-JsTypes.push({
+// represents C# object whose type is unknown to JS
+// currently, it is only used to represent C# delegate objects, which only exists in C#, and are only available in C#
+jst_pushOrReplace({
     definition: {},
     staticDefinition: {},
     fields: {},
@@ -19,72 +10,39 @@ JsTypes.push({
     fullname: "JSRepresentedObject"
 });
 
-
-/*
-* Before Compile:
-* Set MonoBehaviour.ctor to empty function
-*/
+// todo
 // UnityEngine.MonoBehaviour.ctor = function () {}
 
-/*
-* Compile Now !!
-*/
-
+// find Unity Debug.Log and Debug.LogError
 var printError = function () {};
 var print = function () {};
 (function () {
-    for (var i = 0; i < JsTypes.length; i++) {
-        if (JsTypes[i].fullname == "UnityEngine.Debug") {
-            printError = JsTypes[i].staticDefinition.LogError$$Object;
-            print = JsTypes[i].staticDefinition.Log$$Object;
-            break;
-        }
-    }
+	var dbg = jst_find("UnityEngine.Debug");
+	if (dbg) {
+		printError = dbg.staticDefinition.LogError$$Object;
+		print = dbg.staticDefinition.Log$$Object;
+	}
 }());
 
-/*
-* Sort JsTypes before Compile()
-* if we have 2 types: A.B.C and A.B
-* A.B will be in front of A.B.C after sort
-*/
+// sort JsTypes before Compile()
+// if we have 2 types: A.B.C and A.B
+// A.B will be in front of A.B.C after sort
 JsTypes.sort(function (a, b) {
     return (a.fullname < b.fullname ? -1 : 1);
 });
 
-/*
-
-var str = "";
-for (var i = 0; i < JsTypes.length; i++) {
-    str += JsTypes[i].fullname + "\n";
-}
-print(str);
-    
-*/
-
-try
-{
+// Compile
+try {
     Compile();
 }
-catch (ex) 
-{
+catch (ex)  {
     //if (ex.message)
     //    printError("JS Error! Error: " + ex.message + "\n\nStack: \n" + ex.stack);
     //else
         printError("JS Error! Error: " + ex + "\n\nStack: \n" + ex.stack);
 }
 
-// print = UnityEngine.Debug.Log$$Object;
-
-//print(UnityEngine.Vector3.ctor.prototype.x);
-
-/*
-for (var v in Rotate)
-{
-	    print(v)
-}*/
-
-function jsb_NewMonoBehaviour(name, nativeObj) 
-{
+function jsb_NewMonoBehaviour(name, nativeObj) {
     var jsType = this[name];
     if (jsType && jsType.ctor) {
         var obj = new jsType.ctor();
@@ -94,8 +52,7 @@ function jsb_NewMonoBehaviour(name, nativeObj)
     return undefined;
 }
 
-function jsb_NewObject(name)
-{
+function jsb_NewObject(name) {
     var arr = name.split(".");
     var obj = this;
     arr.forEach(function (a) {
@@ -110,8 +67,8 @@ function jsb_NewObject(name)
     return undefined;
 }
 
-function jsb_CallObjectCtor(name)
-{
+// called from C
+function jsb_CallObjectCtor(name) {
     var arr = name.split(".");
     var obj = this;
     arr.forEach(function (a) {
@@ -129,8 +86,7 @@ function jsb_CallObjectCtor(name)
     return undefined;
 }
 
-function jsb_formatParamsArray(preCount, argArray, funArguments)
-{
+function jsb_formatParamsArray(preCount, argArray, funArguments) {
     if (Object.prototype.toString.apply(argArray) === "[object Array]") {
         return argArray;
     } else {
@@ -138,8 +94,7 @@ function jsb_formatParamsArray(preCount, argArray, funArguments)
     }
 }
 
-function jsb_IsInheritanceRel(baseClassName, subClassName)
-{
+function jsb_IsInheritanceRel(baseClassName, subClassName) {
     var arr = subClassName.split(".");
     var obj = window;
     arr.forEach(function (a) {

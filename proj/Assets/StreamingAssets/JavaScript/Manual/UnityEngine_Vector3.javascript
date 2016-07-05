@@ -1,10 +1,4 @@
-_jstype = undefined;
-for (var i = 0; i < JsTypes.length; i++) {
-    if (JsTypes[i].fullname == "UnityEngine.Vector3") {
-        _jstype = JsTypes[i];
-        break;
-    }
-}
+_jstype = jst_find("UnityEngine.Vector3");
 
 // UnityEngine$Vector3
 //_jstype =
@@ -331,6 +325,3 @@ _jstype.staticDefinition.Scale$$Vector3$$Vector3 = function(a0/*Vector3*/, a1/*V
 _jstype.staticDefinition.SqrMagnitude = function(a0/*Vector3*/) {
     return a0.get_sqrMagnitude();
 }
-//
-//
-//JsTypes.push(_jstype);

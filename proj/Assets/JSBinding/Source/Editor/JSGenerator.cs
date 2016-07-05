@@ -221,23 +221,10 @@ _jstype.{7}.set_{0} = function({10}v) [[ return CS.Call({2}, {3}, {4}, {5}{6}{8}
         }
         return sb;
     }
-    public static StringBuilder BuildTail()
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.Append(@"
-
-
-JsTypes.push(_jstype);");
-        return sb;
-    }
     public static StringBuilder BuildHeader(Type type)
     {
-        string fmt = @"if (typeof(JsTypes) == 'undefined')
-    var JsTypes = [];
-
-// {0}
-_jstype = 
-[[
+        string fmt = @"// {0}
+_jstype = jst_pushOrReplace([[
     definition: [[]],
     staticDefinition: [[]],
     fields: [[]],
@@ -246,20 +233,7 @@ _jstype =
     Kind: '{2}',
     fullname: '{3}', {4}
     {5}
-]];
-
-var _found = false;
-for (var i = 0; i < JsTypes.length; i++) [[
-    if (JsTypes[i].fullname == _jstype.fullname) [[
-        JsTypes[i] = _jstype;
-        _found = true;
-        break;
-    ]]
-]]
-if (!_found) [[
-    JsTypes.push(_jstype);
-]]
-
+]]);
 ";
         string jsTypeName = JSNameMgr.GetTypeFullName(type);
         jsTypeName = jsTypeName.Replace('.', '$');
@@ -527,22 +501,33 @@ _jstype.staticDefinition.{1} = function({2}) [[
 
     static void GenerateEnum()
     {
-        var sb = new StringBuilder();
-		string fullName = type.FullName.Replace('+', '.');
+		string fullName = JSNameMgr.GetTypeFullName(type);
+		string jsTypeName = fullName.Replace('.', '$');
 
-		sb.AppendFormat("{0} = [[\n", fullName);
-
-        FieldInfo[] fields = type.GetFields(BindingFlags.GetField | BindingFlags.Public | BindingFlags.Static);
-        string fmtField = "    {0}: {1}{2}\n";
-        for (int i = 0; i < fields.Length; i++)
-        {
-            sb.AppendFormat(fmtField, fields[i].Name, (int)fields[i].GetValue(null), i==fields.Length-1?"":",");
+		var sbValues = new StringBuilder();
+		{
+			FieldInfo[] fields = type.GetFields(BindingFlags.GetField | BindingFlags.Public | BindingFlags.Static);
+			string fmtField = "        {0}: {1}{2}\n";
+			for (int i = 0; i < fields.Length; i++)
+			{
+				sbValues.AppendFormat(fmtField, fields[i].Name, (int)fields[i].GetValue(null), 
+				                      i == fields.Length - 1 ? "" : ",");
+            }
         }
-        string fmtEnter = "]];\n";
-        sb.Append(fmtEnter);
-
-		HandleStringFormat(sb);
-		W.Write(sb.ToString());
+		
+		var sbDef = new StringBuilder();
+		sbDef.AppendFormat(@"
+jst_pushOrReplace([[
+    fullname: '{1}',
+    staticDefinition: [[
+{2}    ]],
+    Kind: 'Enum'
+]]);
+",
+		jsTypeName, fullName, sbValues);
+        
+        HandleStringFormat(sbDef);
+		W.Write(sbDef.ToString());
     }
 
     public static void Clear()

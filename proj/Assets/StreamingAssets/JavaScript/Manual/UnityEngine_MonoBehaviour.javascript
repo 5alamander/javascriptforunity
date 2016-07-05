@@ -1,10 +1,4 @@
-_jstype = undefined;
-for (var i = 0; i < JsTypes.length; i++) {
-    if (JsTypes[i].fullname == "UnityEngine.MonoBehaviour") {
-        _jstype = JsTypes[i];
-        break;
-    }
-}
+_jstype = jst_find("UnityEngine.MonoBehaviour");
 
 if (_jstype) {
     _jstype.definition.CancelInvoke$$String = function(a0/*String*/) {

@@ -4,7 +4,7 @@ using System.Collections;
 
 public static class JSMenus
 {
-	[MenuItem("Assets/JSB/Gen Bindings", false, 1)]
+	[MenuItem("Assets/JavaScript/Gen Bindings", false, 1)]
 	public static void GenBindings()
 	{
 		if (EditorApplication.isCompiling)

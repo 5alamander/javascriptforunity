@@ -1,10 +1,4 @@
-_jstype = undefined;
-for (var i = 0; i < JsTypes.length; i++) {
-    if (JsTypes[i].fullname == "UnityEngine.Vector2") {
-        _jstype = JsTypes[i];
-        break;
-    }
-}
+_jstype = jst_find("UnityEngine.Vector2");
 
 // UnityEngine$Vector2
 //_jstype = 

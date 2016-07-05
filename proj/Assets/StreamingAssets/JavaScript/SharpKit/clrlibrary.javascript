@@ -1,6 +1,4 @@
 
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
 var System$Activator = {
     fullname: "System.Activator",
     baseTypeName: "System.Object",
@@ -35,7 +33,7 @@ var System$Activator = {
         }
     }
 };
-JsTypes.push(System$Activator);
+jst_pushOrReplace(System$Activator);
 var System$Array = {
     fullname: "System.Array",
     baseTypeName: "System.Object",
@@ -84,7 +82,8 @@ var System$Array = {
         }
     }
 };
-JsTypes.push(System$Array);
+jst_pushOrReplace(System$Array);
+
 var SharpKit$JavaScript$Private$JsComparerHelper$1 = {
     fullname: "SharpKit.JavaScript.Private.JsComparerHelper$1",
     baseTypeName: "System.Object",
@@ -103,7 +102,8 @@ var SharpKit$JavaScript$Private$JsComparerHelper$1 = {
         }
     }
 };
-JsTypes.push(SharpKit$JavaScript$Private$JsComparerHelper$1);
+jst_pushOrReplace(SharpKit$JavaScript$Private$JsComparerHelper$1);
+
 var System$Attribute = {
     fullname: "System.Attribute",
     baseTypeName: "System.Object",
@@ -115,7 +115,8 @@ var System$Attribute = {
         }
     }
 };
-JsTypes.push(System$Attribute);
+jst_pushOrReplace(System$Attribute);
+
 var System$Collections$Comparer = {
     fullname: "System.Collections.Comparer",
     baseTypeName: "System.Object",
@@ -139,7 +140,8 @@ var System$Collections$Comparer = {
         }
     }
 };
-JsTypes.push(System$Collections$Comparer);
+jst_pushOrReplace(System$Collections$Comparer);
+
 var SharpKit$JavaScript$Private$DefaultComparer = {
     fullname: "SharpKit.JavaScript.Private.DefaultComparer",
     baseTypeName: "System.Collections.Comparer",
@@ -166,7 +168,8 @@ var SharpKit$JavaScript$Private$DefaultComparer = {
         }
     }
 };
-JsTypes.push(SharpKit$JavaScript$Private$DefaultComparer);
+jst_pushOrReplace(SharpKit$JavaScript$Private$DefaultComparer);
+
 var System$Collections$Generic$Comparer$1 = {
     fullname: "System.Collections.Generic.Comparer$1",
     baseTypeName: "System.Object",
@@ -191,7 +194,8 @@ var System$Collections$Generic$Comparer$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$Generic$Comparer$1);
+jst_pushOrReplace(System$Collections$Generic$Comparer$1);
+
 var System$Collections$Generic$KeyNotFoundException = {
     fullname: "System.Collections.Generic.KeyNotFoundException",
     baseTypeName: "System.Exception",
@@ -209,14 +213,16 @@ var System$Collections$Generic$KeyNotFoundException = {
         }
     }
 };
-JsTypes.push(System$Collections$Generic$KeyNotFoundException);
+jst_pushOrReplace(System$Collections$Generic$KeyNotFoundException);
+
 var System$Collections$Generic$IEnumerator$1 = {
     fullname: "System.Collections.Generic.IEnumerator$1",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$Generic$IEnumerator$1);
+jst_pushOrReplace(System$Collections$Generic$IEnumerator$1);
+
 var System$Collections$Generic$IEnumerable$1 = {
     fullname: "System.Collections.Generic.IEnumerable$1",
     baseTypeName: "System.Object",
@@ -224,7 +230,8 @@ var System$Collections$Generic$IEnumerable$1 = {
     interfaceNames: ["System.Collections.IEnumerable"],
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$Generic$IEnumerable$1);
+jst_pushOrReplace(System$Collections$Generic$IEnumerable$1);
+
 var System$Collections$Generic$IList$1 = {
     fullname: "System.Collections.Generic.IList$1",
     baseTypeName: "System.Object",
@@ -232,7 +239,8 @@ var System$Collections$Generic$IList$1 = {
     interfaceNames: ["System.Collections.Generic.ICollection$1"],
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$Generic$IList$1);
+jst_pushOrReplace(System$Collections$Generic$IList$1);
+
 var System$Collections$Generic$ICollection$1 = {
     fullname: "System.Collections.Generic.ICollection$1",
     baseTypeName: "System.Object",
@@ -240,14 +248,16 @@ var System$Collections$Generic$ICollection$1 = {
     interfaceNames: ["System.Collections.Generic.IEnumerable$1"],
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$Generic$ICollection$1);
+jst_pushOrReplace(System$Collections$Generic$ICollection$1);
+
 var System$Collections$Generic$IDictionary$2 = {
     fullname: "System.Collections.Generic.IDictionary$2",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$Generic$IDictionary$2);
+jst_pushOrReplace(System$Collections$Generic$IDictionary$2);
+
 var System$Collections$Generic$ISet$1 = {
     fullname: "System.Collections.Generic.ISet$1",
     baseTypeName: "System.Object",
@@ -255,21 +265,24 @@ var System$Collections$Generic$ISet$1 = {
     interfaceNames: ["System.Collections.Generic.ICollection$1", "System.Collections.Generic.IEnumerable$1", "System.Collections.IEnumerable"],
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$Generic$ISet$1);
+jst_pushOrReplace(System$Collections$Generic$ISet$1);
+
 var System$Collections$IEqualityComparer = {
     fullname: "System.Collections.IEqualityComparer",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$IEqualityComparer);
+jst_pushOrReplace(System$Collections$IEqualityComparer);
+
 var System$Collections$Generic$IEqualityComparer$1 = {
     fullname: "System.Collections.Generic.IEqualityComparer$1",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$Generic$IEqualityComparer$1);
+jst_pushOrReplace(System$Collections$Generic$IEqualityComparer$1);
+
 var System$Comparison$1 = {
     fullname: "System.Comparison$1",
     Kind: "Delegate",
@@ -280,7 +293,8 @@ var System$Comparison$1 = {
         }
     }
 };
-JsTypes.push(System$Comparison$1);
+jst_pushOrReplace(System$Comparison$1);
+
 var System$Collections$IDictionary = {
     fullname: "System.Collections.IDictionary",
     baseTypeName: "System.Object",
@@ -288,21 +302,24 @@ var System$Collections$IDictionary = {
     interfaceNames: ["System.Collections.ICollection", "System.Collections.IEnumerable"],
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$IDictionary);
+jst_pushOrReplace(System$Collections$IDictionary);
+
 var System$Collections$IEnumerable = {
     fullname: "System.Collections.IEnumerable",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$IEnumerable);
+jst_pushOrReplace(System$Collections$IEnumerable);
+
 var System$Collections$IEnumerator = {
     fullname: "System.Collections.IEnumerator",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$IEnumerator);
+jst_pushOrReplace(System$Collections$IEnumerator);
+
 var System$Collections$ICollection = {
     fullname: "System.Collections.ICollection",
     baseTypeName: "System.Object",
@@ -310,7 +327,8 @@ var System$Collections$ICollection = {
     interfaceNames: ["System.Collections.IEnumerable"],
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$ICollection);
+jst_pushOrReplace(System$Collections$ICollection);
+
 var System$Collections$IList = {
     fullname: "System.Collections.IList",
     baseTypeName: "System.Object",
@@ -318,14 +336,16 @@ var System$Collections$IList = {
     interfaceNames: ["System.Collections.ICollection"],
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$IList);
+jst_pushOrReplace(System$Collections$IList);
+
 var System$IComparer = {
     fullname: "System.IComparer",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$IComparer);
+jst_pushOrReplace(System$IComparer);
+
 var System$Collections$Specialized$NotifyCollectionChangedAction = {
     fullname: "System.Collections.Specialized.NotifyCollectionChangedAction",
     staticDefinition: {
@@ -337,14 +357,16 @@ var System$Collections$Specialized$NotifyCollectionChangedAction = {
     },
     Kind: "Enum"
 };
-JsTypes.push(System$Collections$Specialized$NotifyCollectionChangedAction);
+jst_pushOrReplace(System$Collections$Specialized$NotifyCollectionChangedAction);
+
 var System$Collections$Specialized$INotifyCollectionChanged = {
     fullname: "System.Collections.Specialized.INotifyCollectionChanged",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$Collections$Specialized$INotifyCollectionChanged);
+jst_pushOrReplace(System$Collections$Specialized$INotifyCollectionChanged);
+
 var System$Collections$Specialized$NotifyCollectionChangedEventArgs = {
     fullname: "System.Collections.Specialized.NotifyCollectionChangedEventArgs",
     baseTypeName: "System.EventArgs",
@@ -550,7 +572,8 @@ var System$Collections$Specialized$NotifyCollectionChangedEventArgs = {
         }
     }
 };
-JsTypes.push(System$Collections$Specialized$NotifyCollectionChangedEventArgs);
+jst_pushOrReplace(System$Collections$Specialized$NotifyCollectionChangedEventArgs);
+
 var System$ComponentModel$AsyncCompletedEventHandler = {
     fullname: "System.ComponentModel.AsyncCompletedEventHandler",
     Kind: "Delegate",
@@ -560,7 +583,8 @@ var System$ComponentModel$AsyncCompletedEventHandler = {
         }
     }
 };
-JsTypes.push(System$ComponentModel$AsyncCompletedEventHandler);
+jst_pushOrReplace(System$ComponentModel$AsyncCompletedEventHandler);
+
 var System$ComponentModel$AsyncCompletedEventArgs = {
     fullname: "System.ComponentModel.AsyncCompletedEventArgs",
     baseTypeName: "System.EventArgs",
@@ -596,7 +620,8 @@ var System$ComponentModel$AsyncCompletedEventArgs = {
         }
     }
 };
-JsTypes.push(System$ComponentModel$AsyncCompletedEventArgs);
+jst_pushOrReplace(System$ComponentModel$AsyncCompletedEventArgs);
+
 var System$ComponentModel$CancelEventHandler = {
     fullname: "System.ComponentModel.CancelEventHandler",
     Kind: "Delegate",
@@ -606,7 +631,8 @@ var System$ComponentModel$CancelEventHandler = {
         }
     }
 };
-JsTypes.push(System$ComponentModel$CancelEventHandler);
+jst_pushOrReplace(System$ComponentModel$CancelEventHandler);
+
 var System$ComponentModel$CancelEventArgs = {
     fullname: "System.ComponentModel.CancelEventArgs",
     baseTypeName: "System.EventArgs",
@@ -632,21 +658,22 @@ var System$ComponentModel$CancelEventArgs = {
         }
     }
 };
-JsTypes.push(System$ComponentModel$CancelEventArgs);
+jst_pushOrReplace(System$ComponentModel$CancelEventArgs);
+
 var System$ComponentModel$INotifyPropertyChanging = {
     fullname: "System.ComponentModel.INotifyPropertyChanging",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$ComponentModel$INotifyPropertyChanging);
+jst_pushOrReplace(System$ComponentModel$INotifyPropertyChanging);
 var System$ComponentModel$INotifyPropertyChanged = {
     fullname: "System.ComponentModel.INotifyPropertyChanged",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$ComponentModel$INotifyPropertyChanged);
+jst_pushOrReplace(System$ComponentModel$INotifyPropertyChanged);
 var System$ComponentModel$PropertyChangedEventHandler = {
     fullname: "System.ComponentModel.PropertyChangedEventHandler",
     Kind: "Delegate",
@@ -656,7 +683,7 @@ var System$ComponentModel$PropertyChangedEventHandler = {
         }
     }
 };
-JsTypes.push(System$ComponentModel$PropertyChangedEventHandler);
+jst_pushOrReplace(System$ComponentModel$PropertyChangedEventHandler);
 var System$ComponentModel$PropertyChangedEventArgs = {
     fullname: "System.ComponentModel.PropertyChangedEventArgs",
     baseTypeName: "System.EventArgs",
@@ -674,7 +701,7 @@ var System$ComponentModel$PropertyChangedEventArgs = {
         }
     }
 };
-JsTypes.push(System$ComponentModel$PropertyChangedEventArgs);
+jst_pushOrReplace(System$ComponentModel$PropertyChangedEventArgs);
 //var System$DateTime = {
 //    fullname: "System.DateTime",
 //    baseTypeName: "Date",
@@ -792,7 +819,7 @@ JsTypes.push(System$ComponentModel$PropertyChangedEventArgs);
 //        }
 //    }
 //};
-//JsTypes.push(System$DateTime);
+//jst_pushOrReplace(System$DateTime);
 var System$DateTimeKind = {
     fullname: "System.DateTimeKind",
     staticDefinition: {
@@ -802,7 +829,7 @@ var System$DateTimeKind = {
     },
     Kind: "Enum"
 };
-JsTypes.push(System$DateTimeKind);
+jst_pushOrReplace(System$DateTimeKind);
 var System$Delegate = {
     fullname: "System.Delegate",
     baseTypeName: "System.Object",
@@ -828,7 +855,7 @@ var System$Delegate = {
         }
     }
 };
-JsTypes.push(System$Delegate);
+jst_pushOrReplace(System$Delegate);
 var System$MulticastDelegate = {
     fullname: "System.MulticastDelegate",
     baseTypeName: "System.Delegate",
@@ -849,7 +876,7 @@ var System$MulticastDelegate = {
         }
     }
 };
-JsTypes.push(System$MulticastDelegate);
+jst_pushOrReplace(System$MulticastDelegate);
 var System$Action = {
     fullname: "System.Action",
     Kind: "Delegate",
@@ -859,7 +886,7 @@ var System$Action = {
         }
     }
 };
-JsTypes.push(System$Action);
+jst_pushOrReplace(System$Action);
 var System$Action$1 = {
     fullname: "System.Action$1",
     Kind: "Delegate",
@@ -870,7 +897,7 @@ var System$Action$1 = {
         }
     }
 };
-JsTypes.push(System$Action$1);
+jst_pushOrReplace(System$Action$1);
 var System$Action$2 = {
     fullname: "System.Action$2",
     Kind: "Delegate",
@@ -882,7 +909,7 @@ var System$Action$2 = {
         }
     }
 };
-JsTypes.push(System$Action$2);
+jst_pushOrReplace(System$Action$2);
 var System$Action$3 = {
     fullname: "System.Action$3",
     Kind: "Delegate",
@@ -895,7 +922,7 @@ var System$Action$3 = {
         }
     }
 };
-JsTypes.push(System$Action$3);
+jst_pushOrReplace(System$Action$3);
 var System$Func$1 = {
     fullname: "System.Func$1",
     Kind: "Delegate",
@@ -906,7 +933,7 @@ var System$Func$1 = {
         }
     }
 };
-JsTypes.push(System$Func$1);
+jst_pushOrReplace(System$Func$1);
 var System$Func$2 = {
     fullname: "System.Func$2",
     Kind: "Delegate",
@@ -918,7 +945,7 @@ var System$Func$2 = {
         }
     }
 };
-JsTypes.push(System$Func$2);
+jst_pushOrReplace(System$Func$2);
 var System$Func$3 = {
     fullname: "System.Func$3",
     Kind: "Delegate",
@@ -931,7 +958,7 @@ var System$Func$3 = {
         }
     }
 };
-JsTypes.push(System$Func$3);
+jst_pushOrReplace(System$Func$3);
 var System$Func$4 = {
     fullname: "System.Func$4",
     Kind: "Delegate",
@@ -945,7 +972,7 @@ var System$Func$4 = {
         }
     }
 };
-JsTypes.push(System$Func$4);
+jst_pushOrReplace(System$Func$4);
 var System$EventHandler = {
     fullname: "System.EventHandler",
     Kind: "Delegate",
@@ -955,7 +982,7 @@ var System$EventHandler = {
         }
     }
 };
-JsTypes.push(System$EventHandler);
+jst_pushOrReplace(System$EventHandler);
 var System$EventHandler$1 = {
     fullname: "System.EventHandler$1",
     Kind: "Delegate",
@@ -966,7 +993,7 @@ var System$EventHandler$1 = {
         }
     }
 };
-JsTypes.push(System$EventHandler$1);
+jst_pushOrReplace(System$EventHandler$1);
 var System$Predicate$1 = {
     fullname: "System.Predicate$1",
     Kind: "Delegate",
@@ -977,7 +1004,7 @@ var System$Predicate$1 = {
         }
     }
 };
-JsTypes.push(System$Predicate$1);
+jst_pushOrReplace(System$Predicate$1);
 var System$Enum = {
     fullname: "System.Enum",
     baseTypeName: "System.Object",
@@ -1034,7 +1061,7 @@ var System$Enum = {
         }
     }
 };
-JsTypes.push(System$Enum);
+jst_pushOrReplace(System$Enum);
 var System$Environment = {
     fullname: "System.Environment",
     baseTypeName: "System.Object",
@@ -1051,7 +1078,7 @@ var System$Environment = {
         }
     }
 };
-JsTypes.push(System$Environment);
+jst_pushOrReplace(System$Environment);
 var System$EventArgs = {
     fullname: "System.EventArgs",
     baseTypeName: "System.Object",
@@ -1063,7 +1090,7 @@ var System$EventArgs = {
         }
     }
 };
-JsTypes.push(System$EventArgs);
+jst_pushOrReplace(System$EventArgs);
 var System$Exception = {
     fullname: "System.Exception",
     baseTypeName: "System.Object",
@@ -1106,7 +1133,7 @@ var System$Exception = {
         }
     }
 };
-JsTypes.push(System$Exception);
+jst_pushOrReplace(System$Exception);
 var System$NotImplementedException = {
     fullname: "System.NotImplementedException",
     baseTypeName: "System.Exception",
@@ -1121,7 +1148,7 @@ var System$NotImplementedException = {
         }
     }
 };
-JsTypes.push(System$NotImplementedException);
+jst_pushOrReplace(System$NotImplementedException);
 var System$SystemException = {
     fullname: "System.SystemException",
     baseTypeName: "System.Exception",
@@ -1142,7 +1169,7 @@ var System$SystemException = {
         }
     }
 };
-JsTypes.push(System$SystemException);
+jst_pushOrReplace(System$SystemException);
 var System$ArgumentException = {
     fullname: "System.ArgumentException",
     baseTypeName: "System.SystemException",
@@ -1181,7 +1208,7 @@ var System$ArgumentException = {
         }
     }
 };
-JsTypes.push(System$ArgumentException);
+jst_pushOrReplace(System$ArgumentException);
 var System$NullReferenceException = {
     fullname: "System.NullReferenceException",
     baseTypeName: "System.SystemException",
@@ -1196,7 +1223,7 @@ var System$NullReferenceException = {
         }
     }
 };
-JsTypes.push(System$NullReferenceException);
+jst_pushOrReplace(System$NullReferenceException);
 var System$NotSupportedException = {
     fullname: "System.NotSupportedException",
     baseTypeName: "System.SystemException",
@@ -1214,7 +1241,7 @@ var System$NotSupportedException = {
         }
     }
 };
-JsTypes.push(System$NotSupportedException);
+jst_pushOrReplace(System$NotSupportedException);
 var System$ArgumentOutOfRangeException = {
     fullname: "System.ArgumentOutOfRangeException",
     baseTypeName: "System.ArgumentException",
@@ -1265,7 +1292,7 @@ var System$ArgumentOutOfRangeException = {
         }
     }
 };
-JsTypes.push(System$ArgumentOutOfRangeException);
+jst_pushOrReplace(System$ArgumentOutOfRangeException);
 var System$Guid = {
     fullname: "System.Guid",
     baseTypeName: "System.ValueType",
@@ -1557,21 +1584,21 @@ var System$Guid = {
         }
     }
 };
-JsTypes.push(System$Guid);
+jst_pushOrReplace(System$Guid);
 var System$ICloneable = {
     fullname: "System.ICloneable",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$ICloneable);
+jst_pushOrReplace(System$ICloneable);
 var System$IDisposable = {
     fullname: "System.IDisposable",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$IDisposable);
+jst_pushOrReplace(System$IDisposable);
 var System$Int64 = {
     fullname: "System.Int64",
     baseTypeName: "System.Object",
@@ -1609,42 +1636,42 @@ var System$Int64 = {
         }
     }
 };
-JsTypes.push(System$Int64);
+jst_pushOrReplace(System$Int64);
 var System$IComparable = {
     fullname: "System.IComparable",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$IComparable);
+jst_pushOrReplace(System$IComparable);
 var System$IComparable$1 = {
     fullname: "System.IComparable$1",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$IComparable$1);
+jst_pushOrReplace(System$IComparable$1);
 var System$IEquatable$1 = {
     fullname: "System.IEquatable$1",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$IEquatable$1);
+jst_pushOrReplace(System$IEquatable$1);
 var System$IComparer$1 = {
     fullname: "System.IComparer$1",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$IComparer$1);
+jst_pushOrReplace(System$IComparer$1);
 var System$IFormattable = {
     fullname: "System.IFormattable",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$IFormattable);
+jst_pushOrReplace(System$IFormattable);
 Date.prototype.CompareTo = function (value){
     return this.valueOf() - value.valueOf();
 };
@@ -1916,7 +1943,7 @@ var System$Nullable$1 = {
         }
     }
 };
-JsTypes.push(System$Nullable$1);
+jst_pushOrReplace(System$Nullable$1);
 var System$Random = {
     fullname: "System.Random",
     baseTypeName: "System.Object",
@@ -1958,7 +1985,7 @@ var System$Random = {
         }
     }
 };
-JsTypes.push(System$Random);
+jst_pushOrReplace(System$Random);
 var System$StringSplitOptions = {
     fullname: "System.StringSplitOptions",
     staticDefinition: {
@@ -1967,7 +1994,7 @@ var System$StringSplitOptions = {
     },
     Kind: "Enum"
 };
-JsTypes.push(System$StringSplitOptions);
+jst_pushOrReplace(System$StringSplitOptions);
 var System$Char = {
     fullname: "System.Char",
     baseTypeName: "System.Object",
@@ -1993,7 +2020,7 @@ var System$Char = {
         }
     }
 };
-JsTypes.push(System$Char);
+jst_pushOrReplace(System$Char);
 var System$CharEnumerator = {
     fullname: "System.CharEnumerator",
     baseTypeName: "System.Object",
@@ -2034,7 +2061,7 @@ var System$CharEnumerator = {
         }
     }
 };
-JsTypes.push(System$CharEnumerator);
+jst_pushOrReplace(System$CharEnumerator);
 var System$StringComparison = {
     fullname: "System.StringComparison",
     staticDefinition: {
@@ -2047,7 +2074,7 @@ var System$StringComparison = {
     },
     Kind: "Enum"
 };
-JsTypes.push(System$StringComparison);
+jst_pushOrReplace(System$StringComparison);
 var System$TimeSpan = {
     fullname: "System.TimeSpan",
     baseTypeName: "System.Object",
@@ -2302,7 +2329,7 @@ var System$TimeSpan = {
         }
     }
 };
-JsTypes.push(System$TimeSpan);
+jst_pushOrReplace(System$TimeSpan);
 var System$Tuple = {
     fullname: "System.Tuple",
     baseTypeName: "System.Object",
@@ -2340,7 +2367,7 @@ var System$Tuple = {
         }
     }
 };
-JsTypes.push(System$Tuple);
+jst_pushOrReplace(System$Tuple);
 var System$Tuple$1 = {
     fullname: "System.Tuple$1",
     baseTypeName: "System.Object",
@@ -2359,7 +2386,7 @@ var System$Tuple$1 = {
         }
     }
 };
-JsTypes.push(System$Tuple$1);
+jst_pushOrReplace(System$Tuple$1);
 var System$Tuple$2 = {
     fullname: "System.Tuple$2",
     baseTypeName: "System.Object",
@@ -2385,7 +2412,7 @@ var System$Tuple$2 = {
         }
     }
 };
-JsTypes.push(System$Tuple$2);
+jst_pushOrReplace(System$Tuple$2);
 var System$Tuple$3 = {
     fullname: "System.Tuple$3",
     baseTypeName: "System.Object",
@@ -2418,7 +2445,7 @@ var System$Tuple$3 = {
         }
     }
 };
-JsTypes.push(System$Tuple$3);
+jst_pushOrReplace(System$Tuple$3);
 var System$Tuple$4 = {
     fullname: "System.Tuple$4",
     baseTypeName: "System.Object",
@@ -2458,7 +2485,7 @@ var System$Tuple$4 = {
         }
     }
 };
-JsTypes.push(System$Tuple$4);
+jst_pushOrReplace(System$Tuple$4);
 var System$Tuple$5 = {
     fullname: "System.Tuple$5",
     baseTypeName: "System.Object",
@@ -2505,7 +2532,7 @@ var System$Tuple$5 = {
         }
     }
 };
-JsTypes.push(System$Tuple$5);
+jst_pushOrReplace(System$Tuple$5);
 var System$Tuple$6 = {
     fullname: "System.Tuple$6",
     baseTypeName: "System.Object",
@@ -2559,7 +2586,7 @@ var System$Tuple$6 = {
         }
     }
 };
-JsTypes.push(System$Tuple$6);
+jst_pushOrReplace(System$Tuple$6);
 var System$Tuple$7 = {
     fullname: "System.Tuple$7",
     baseTypeName: "System.Object",
@@ -2620,7 +2647,7 @@ var System$Tuple$7 = {
         }
     }
 };
-JsTypes.push(System$Tuple$7);
+jst_pushOrReplace(System$Tuple$7);
 var System$UInt32 = {
     fullname: "System.UInt32",
     baseTypeName: "System.Object",
@@ -2655,7 +2682,7 @@ var System$UInt32 = {
         }
     }
 };
-JsTypes.push(System$UInt32);
+jst_pushOrReplace(System$UInt32);
 var System$Uri = {
     fullname: "System.Uri",
     baseTypeName: "System.Object",
@@ -2721,7 +2748,7 @@ var System$Uri = {
         }
     }
 };
-JsTypes.push(System$Uri);
+jst_pushOrReplace(System$Uri);
 var System$ValueType = {
     fullname: "System.ValueType",
     baseTypeName: "System.Object",
@@ -2733,7 +2760,7 @@ var System$ValueType = {
         }
     }
 };
-JsTypes.push(System$ValueType);
+jst_pushOrReplace(System$ValueType);
 var SharpKit$Html4$HtmlDomEventHandler = {
     fullname: "SharpKit.Html4.HtmlDomEventHandler",
     Kind: "Delegate",
@@ -2743,7 +2770,7 @@ var SharpKit$Html4$HtmlDomEventHandler = {
         }
     }
 };
-JsTypes.push(SharpKit$Html4$HtmlDomEventHandler);
+jst_pushOrReplace(SharpKit$Html4$HtmlDomEventHandler);
 var JsRuntime = function (){
 };
 JsRuntime.Start = function (){
@@ -2807,7 +2834,7 @@ if (ENABLE_PROFILER) {
 Array.parse = function (value) {
     return eval('(' + value + ')');
 }
-JsTypes.push(
+jst_pushOrReplace(
     { fullname: "System.Object", definition:
     {
         ctor: function () {
@@ -2861,17 +2888,17 @@ Int32Array.prototype.GetEnumerator = function() { return new ArrayEnumerator.cto
 Float32Array.prototype.GetEnumerator = function() { return new ArrayEnumerator.ctor(this); };
 Float64Array.prototype.GetEnumerator = function() { return new ArrayEnumerator.ctor(this); };
 
-//JsTypes.push({ fullname: "Object" });
-//JsTypes.push({ fullname: "Int8Array" });
-//JsTypes.push({ fullname: "Uint8Array"});
-//JsTypes.push({ fullname: "Int16Array"});
-//JsTypes.push({ fullname: "Uint16Array"});
-//JsTypes.push({ fullname: "Int32Array"});
-//JsTypes.push({ fullname: "Uint32Array"});
-//JsTypes.push({ fullname: "Float32Array"});
-//JsTypes.push({ fullname: "Float64Array"});
+//jst_pushOrReplace({ fullname: "Object" });
+//jst_pushOrReplace({ fullname: "Int8Array" });
+//jst_pushOrReplace({ fullname: "Uint8Array"});
+//jst_pushOrReplace({ fullname: "Int16Array"});
+//jst_pushOrReplace({ fullname: "Uint16Array"});
+//jst_pushOrReplace({ fullname: "Int32Array"});
+//jst_pushOrReplace({ fullname: "Uint32Array"});
+//jst_pushOrReplace({ fullname: "Float32Array"});
+//jst_pushOrReplace({ fullname: "Float64Array"});
 
-JsTypes.push({ fullname: "Array", baseTypeName: "Object", definition:
+jst_pushOrReplace({ fullname: "Array", baseTypeName: "Object", definition:
 {
     GetEnumerator: function () {
         return new ArrayEnumerator.ctor(this);
@@ -3039,7 +3066,7 @@ JsTypes.push({ fullname: "Array", baseTypeName: "Object", definition:
     }
 }
 });
-JsTypes.push({ fullname: "ArrayEnumerator", baseTypeName: "System.Object", definition: //TODO: implement IEnumerator
+jst_pushOrReplace({ fullname: "ArrayEnumerator", baseTypeName: "System.Object", definition: //TODO: implement IEnumerator
 {
     ctor: function (array) {
         this._array = array;
@@ -3063,7 +3090,7 @@ JsTypes.push({ fullname: "ArrayEnumerator", baseTypeName: "System.Object", defin
 AfterCompilation(function () {
     Function._type = System.Delegate;
 });
-JsTypes.push({ fullname: "System.Boolean", baseTypeName: "System.ValueType", definition:
+jst_pushOrReplace({ fullname: "System.Boolean", baseTypeName: "System.ValueType", definition:
 {
     ctor: Boolean,
     toString: function () {
@@ -3083,7 +3110,7 @@ JsTypes.push({ fullname: "System.Boolean", baseTypeName: "System.ValueType", def
     }
 }
 });
-JsTypes.push({ fullname: "System.Int32", baseTypeName: "System.ValueType", definition:
+jst_pushOrReplace({ fullname: "System.Int32", baseTypeName: "System.ValueType", definition:
 {
     ctor: Number,
     toString: Number.prototype.toString //avoid toString override by compiler (toString(radix) won't work if overriden)
@@ -3102,7 +3129,7 @@ JsTypes.push({ fullname: "System.Int32", baseTypeName: "System.ValueType", defin
 }
 });
 // Qiucw
-JsTypes.push({ fullname: "System.Int64", baseTypeName: "System.ValueType", definition:
+jst_pushOrReplace({ fullname: "System.Int64", baseTypeName: "System.ValueType", definition:
 {
     ctor: Number,
     toString: Number.prototype.toString //avoid toString override by compiler (toString(radix) won't work if overriden)
@@ -3121,7 +3148,7 @@ JsTypes.push({ fullname: "System.Int64", baseTypeName: "System.ValueType", defin
 }
 });
 // Qiucw
-JsTypes.push({ fullname: "System.UInt64", baseTypeName: "System.ValueType", definition:
+jst_pushOrReplace({ fullname: "System.UInt64", baseTypeName: "System.ValueType", definition:
 {
     ctor: Number,
     toString: Number.prototype.toString //avoid toString override by compiler (toString(radix) won't work if overriden)
@@ -3139,7 +3166,7 @@ JsTypes.push({ fullname: "System.UInt64", baseTypeName: "System.ValueType", defi
     }
 }
 });
-JsTypes.push({
+jst_pushOrReplace({
     fullname: "System.Single", baseTypeName: "System.ValueType", definition:
     {
         ctor: Number,
@@ -3155,7 +3182,7 @@ JsTypes.push({
     }
 });
 
-JsTypes.push({ fullname: "System.Decimal", baseTypeName: "System.ValueType", definition:
+jst_pushOrReplace({ fullname: "System.Decimal", baseTypeName: "System.ValueType", definition:
 {
     ctor: function (x) { return new Number(x); },
     toString: function () {
@@ -3169,7 +3196,7 @@ JsTypes.push({ fullname: "System.Decimal", baseTypeName: "System.ValueType", def
 }
 });
 
-JsTypes.push({ fullname: "System.Double", baseTypeName: "System.ValueType", definition:
+jst_pushOrReplace({ fullname: "System.Double", baseTypeName: "System.ValueType", definition:
 {
     ctor: function (x) { return new Number(x); }
 },
@@ -3185,7 +3212,7 @@ JsTypes.push({ fullname: "System.Double", baseTypeName: "System.ValueType", defi
 });
 
 String.prototype._toString = String.prototype.toString;
-JsTypes.push({ fullname: "System.String", baseTypeName: "System.Object", definition:
+jst_pushOrReplace({ fullname: "System.String", baseTypeName: "System.Object", definition:
 {
     ctor: String,
     GetEnumerator: function () {
@@ -3476,7 +3503,7 @@ Arguments.Contains = function (args, object) {
     }
     return false;
 }
-//JsTypes.push({ fullname: "Date", definition:
+//jst_pushOrReplace({ fullname: "Date", definition:
 //{
 //    removeTime: function () {
 //        return new Date(this.getFullYear(), this.getMonth(), this.getDate());
@@ -3508,7 +3535,7 @@ Arguments.Contains = function (args, object) {
 //}
 //});
 //THIS file is for backward compatability and should be deprecated
-JsTypes.push({ fullname: "VM", definition:
+jst_pushOrReplace({ fullname: "VM", definition:
 {
 }, staticDefinition:
 {
@@ -3549,7 +3576,7 @@ JsTypes.push({ fullname: "VM", definition:
     }
 }
 });
-JsTypes.push({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", baseTypeName: "System.Object", definition:
+jst_pushOrReplace({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", baseTypeName: "System.Object", definition:
 {
     ctor: function (action, changedItem) {
         if (arguments.length == 0)
@@ -3576,7 +3603,7 @@ JsTypes.push({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", 
 }
 });
 
-//JsTypes.push({
+//jst_pushOrReplace({
 //    fullname: "Uint8Array",
 //    definition:
 //    {
@@ -3589,7 +3616,7 @@ JsTypes.push({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", 
 //    }
 //});
 //
-//JsTypes.push({
+//jst_pushOrReplace({
 //    fullname: "Int16Array",
 //    definition:
 //    {
@@ -3602,7 +3629,7 @@ JsTypes.push({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", 
 //    }
 //});
 //
-//JsTypes.push({
+//jst_pushOrReplace({
 //    fullname: "Uint16Array",
 //    definition:
 //    {
@@ -3615,7 +3642,7 @@ JsTypes.push({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", 
 //    }
 //});
 //
-//JsTypes.push({
+//jst_pushOrReplace({
 //    fullname: "Int32Array",
 //    definition:
 //    {
@@ -3628,7 +3655,7 @@ JsTypes.push({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", 
 //    }
 //});
 //
-//JsTypes.push({
+//jst_pushOrReplace({
 //    fullname: "Uint32Array",
 //    definition:
 //    {
@@ -3641,7 +3668,7 @@ JsTypes.push({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", 
 //    }
 //});
 //
-//JsTypes.push({
+//jst_pushOrReplace({
 //    fullname: "Float32Array",
 //    definition:
 //    {
@@ -3654,7 +3681,7 @@ JsTypes.push({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", 
 //    }
 //});
 //
-//JsTypes.push({
+//jst_pushOrReplace({
 //    fullname: "Float64Array",
 //    definition:
 //    {
@@ -3672,8 +3699,6 @@ AfterCompilation(function()
     System.IO.Path.ctor();
 });
 
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
 var System$IO$Path = {
     fullname: "System.IO.Path",
     baseTypeName: "System.Object",
@@ -3958,10 +3983,8 @@ var System$IO$Path = {
         }
     }
 };
-JsTypes.push(System$IO$Path);
+jst_pushOrReplace(System$IO$Path);
 
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
 var System$Linq$Enumerable = {
     fullname: "System.Linq.Enumerable",
     baseTypeName: "System.Object",
@@ -4504,7 +4527,7 @@ var System$Linq$Enumerable = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable);
+jst_pushOrReplace(System$Linq$Enumerable);
 var System$Linq$Enumerable$Iterator = {
     fullname: "System.Linq.Enumerable.Iterator",
     baseTypeName: "System.Object",
@@ -4537,7 +4560,7 @@ var System$Linq$Enumerable$Iterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$Iterator);
+jst_pushOrReplace(System$Linq$Enumerable$Iterator);
 var System$Linq$Enumerable$SelectManyEnumerableIterator = {
     fullname: "System.Linq.Enumerable.SelectManyEnumerableIterator",
     baseTypeName: "System.Linq.Enumerable.Iterator",
@@ -4603,7 +4626,7 @@ var System$Linq$Enumerable$SelectManyEnumerableIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$SelectManyEnumerableIterator);
+jst_pushOrReplace(System$Linq$Enumerable$SelectManyEnumerableIterator);
 var System$Linq$Enumerable$SelectManyListIterator = {
     fullname: "System.Linq.Enumerable.SelectManyListIterator",
     baseTypeName: "System.Linq.Enumerable.Iterator",
@@ -4653,7 +4676,7 @@ var System$Linq$Enumerable$SelectManyListIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$SelectManyListIterator);
+jst_pushOrReplace(System$Linq$Enumerable$SelectManyListIterator);
 var System$Linq$Enumerable$WhereArrayIterator = {
     fullname: "System.Linq.Enumerable.WhereArrayIterator",
     baseTypeName: "System.Linq.Enumerable.Iterator",
@@ -4694,7 +4717,7 @@ var System$Linq$Enumerable$WhereArrayIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$WhereArrayIterator);
+jst_pushOrReplace(System$Linq$Enumerable$WhereArrayIterator);
 var System$Linq$Enumerable$WhereEnumerableIterator = {
     fullname: "System.Linq.Enumerable.WhereEnumerableIterator",
     baseTypeName: "System.Linq.Enumerable.Iterator",
@@ -4749,7 +4772,7 @@ var System$Linq$Enumerable$WhereEnumerableIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$WhereEnumerableIterator);
+jst_pushOrReplace(System$Linq$Enumerable$WhereEnumerableIterator);
 var System$Linq$Enumerable$WhereListIterator = {
     fullname: "System.Linq.Enumerable.WhereListIterator",
     baseTypeName: "System.Linq.Enumerable.Iterator",
@@ -4797,7 +4820,7 @@ var System$Linq$Enumerable$WhereListIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$WhereListIterator);
+jst_pushOrReplace(System$Linq$Enumerable$WhereListIterator);
 var System$Linq$Enumerable$WhereSelectArrayIterator = {
     fullname: "System.Linq.Enumerable.WhereSelectArrayIterator",
     baseTypeName: "System.Linq.Enumerable.Iterator",
@@ -4841,7 +4864,7 @@ var System$Linq$Enumerable$WhereSelectArrayIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$WhereSelectArrayIterator);
+jst_pushOrReplace(System$Linq$Enumerable$WhereSelectArrayIterator);
 var System$Linq$Enumerable$WhereSelectEnumerableIterator = {
     fullname: "System.Linq.Enumerable.WhereSelectEnumerableIterator",
     baseTypeName: "System.Linq.Enumerable.Iterator",
@@ -4899,7 +4922,7 @@ var System$Linq$Enumerable$WhereSelectEnumerableIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$WhereSelectEnumerableIterator);
+jst_pushOrReplace(System$Linq$Enumerable$WhereSelectEnumerableIterator);
 var System$Linq$Enumerable$WhereSelectListIterator = {
     fullname: "System.Linq.Enumerable.WhereSelectListIterator",
     baseTypeName: "System.Linq.Enumerable.Iterator",
@@ -4950,7 +4973,7 @@ var System$Linq$Enumerable$WhereSelectListIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$WhereSelectListIterator);
+jst_pushOrReplace(System$Linq$Enumerable$WhereSelectListIterator);
 var System$Linq$Enumerable$OfTypeIterator = {
     fullname: "System.Linq.Enumerable.OfTypeIterator",
     baseTypeName: "System.Object",
@@ -4993,7 +5016,7 @@ var System$Linq$Enumerable$OfTypeIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$OfTypeIterator);
+jst_pushOrReplace(System$Linq$Enumerable$OfTypeIterator);
 var System$Linq$Enumerable$SkipIterator = {
     fullname: "System.Linq.Enumerable.SkipIterator",
     baseTypeName: "System.Object",
@@ -5047,7 +5070,7 @@ var System$Linq$Enumerable$SkipIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$SkipIterator);
+jst_pushOrReplace(System$Linq$Enumerable$SkipIterator);
 var System$Linq$Enumerable$TakeIterator = {
     fullname: "System.Linq.Enumerable.TakeIterator",
     baseTypeName: "System.Object",
@@ -5101,7 +5124,7 @@ var System$Linq$Enumerable$TakeIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$TakeIterator);
+jst_pushOrReplace(System$Linq$Enumerable$TakeIterator);
 var System$Linq$Enumerable$TakeIterator = {
     fullname: "System.Linq.Enumerable.TakeIterator",
     baseTypeName: "System.Object",
@@ -5174,7 +5197,7 @@ var System$Linq$Enumerable$TakeIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$TakeIterator);
+jst_pushOrReplace(System$Linq$Enumerable$TakeIterator);
 var System$Linq$Enumerable$SelectManyArrayIterator = {
     fullname: "System.Linq.Enumerable.SelectManyArrayIterator",
     baseTypeName: "System.Linq.Enumerable.Iterator",
@@ -5224,7 +5247,7 @@ var System$Linq$Enumerable$SelectManyArrayIterator = {
         }
     }
 };
-JsTypes.push(System$Linq$Enumerable$SelectManyArrayIterator);
+jst_pushOrReplace(System$Linq$Enumerable$SelectManyArrayIterator);
 var System$Linq$_Error = {
     fullname: "System.Linq._Error",
     baseTypeName: "System.Object",
@@ -5292,7 +5315,7 @@ var System$Linq$_Error = {
         }
     }
 };
-JsTypes.push(System$Linq$_Error);
+jst_pushOrReplace(System$Linq$_Error);
 var System$Linq$IGrouping$2 = {
     fullname: "System.Linq.IGrouping$2",
     baseTypeName: "System.Object",
@@ -5300,7 +5323,7 @@ var System$Linq$IGrouping$2 = {
     interfaceNames: ["System.Collections.Generic.IEnumerable$1", "System.Collections.IEnumerable"],
     Kind: "Interface"
 };
-JsTypes.push(System$Linq$IGrouping$2);
+jst_pushOrReplace(System$Linq$IGrouping$2);
 var System$Linq$IOrderedEnumerable$1 = {
     fullname: "System.Linq.IOrderedEnumerable$1",
     baseTypeName: "System.Object",
@@ -5308,7 +5331,7 @@ var System$Linq$IOrderedEnumerable$1 = {
     interfaceNames: ["System.Collections.Generic.IEnumerable$1", "System.Collections.IEnumerable"],
     Kind: "Interface"
 };
-JsTypes.push(System$Linq$IOrderedEnumerable$1);
+jst_pushOrReplace(System$Linq$IOrderedEnumerable$1);
 var System$Linq$Error = {
     fullname: "System.Linq.Error",
     baseTypeName: "System.Object",
@@ -5331,7 +5354,7 @@ var System$Linq$Error = {
         }
     }
 };
-JsTypes.push(System$Linq$Error);
+jst_pushOrReplace(System$Linq$Error);
 var System$Linq$_OrderedEnumerable$1 = {
     fullname: "System.Linq._OrderedEnumerable$1",
     baseTypeName: "System.Object",
@@ -5364,7 +5387,7 @@ var System$Linq$_OrderedEnumerable$1 = {
         }
     }
 };
-JsTypes.push(System$Linq$_OrderedEnumerable$1);
+jst_pushOrReplace(System$Linq$_OrderedEnumerable$1);
 var System$Linq$_OrderedEnumerable$2 = {
     fullname: "System.Linq._OrderedEnumerable$2",
     baseTypeName: "System.Linq._OrderedEnumerable$1",
@@ -5405,10 +5428,8 @@ var System$Linq$_OrderedEnumerable$2 = {
         }
     }
 };
-JsTypes.push(System$Linq$_OrderedEnumerable$2);
+jst_pushOrReplace(System$Linq$_OrderedEnumerable$2);
 
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
 var System$Collections$ArrayList = {
     fullname: "System.Collections.ArrayList",
     baseTypeName: "System.Collections.Generic.List$1",
@@ -5420,7 +5441,7 @@ var System$Collections$ArrayList = {
         }
     }
 };
-JsTypes.push(System$Collections$ArrayList);
+jst_pushOrReplace(System$Collections$ArrayList);
 var System$Collections$Generic$Dictionary$2 = {
     fullname: "System.Collections.Generic.Dictionary$2",
     baseTypeName: "System.Object",
@@ -5549,7 +5570,7 @@ var System$Collections$Generic$Dictionary$2 = {
         }
     }
 };
-JsTypes.push(System$Collections$Generic$Dictionary$2);
+jst_pushOrReplace(System$Collections$Generic$Dictionary$2);
 var System$Collections$Generic$HashSet$1 = {
     fullname: "System.Collections.Generic.HashSet$1",
     baseTypeName: "System.Object",
@@ -5654,7 +5675,7 @@ var System$Collections$Generic$HashSet$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$Generic$HashSet$1);
+jst_pushOrReplace(System$Collections$Generic$HashSet$1);
 var System$StringComparer = {
     fullname: "System.StringComparer",
     baseTypeName: "System.Object",
@@ -5678,7 +5699,7 @@ var System$StringComparer = {
         }
     }
 };
-JsTypes.push(System$StringComparer);
+jst_pushOrReplace(System$StringComparer);
 var SharpKit$JavaScript$Private$StringComparer_InvariantCultureIgnoreCase = {
     fullname: "SharpKit.JavaScript.Private.StringComparer_InvariantCultureIgnoreCase",
     baseTypeName: "System.StringComparer",
@@ -5706,7 +5727,7 @@ var SharpKit$JavaScript$Private$StringComparer_InvariantCultureIgnoreCase = {
         }
     }
 };
-JsTypes.push(SharpKit$JavaScript$Private$StringComparer_InvariantCultureIgnoreCase);
+jst_pushOrReplace(SharpKit$JavaScript$Private$StringComparer_InvariantCultureIgnoreCase);
 var System$Collections$Generic$KeyValuePair$2 = {
     fullname: "System.Collections.Generic.KeyValuePair$2",
     baseTypeName: "System.ValueType",
@@ -5739,7 +5760,7 @@ var System$Collections$Generic$KeyValuePair$2 = {
         }
     }
 };
-JsTypes.push(System$Collections$Generic$KeyValuePair$2);
+jst_pushOrReplace(System$Collections$Generic$KeyValuePair$2);
 var System$Collections$Generic$List$1 = {
     fullname: "System.Collections.Generic.List$1",
     baseTypeName: "System.Object",
@@ -5884,7 +5905,7 @@ var System$Collections$Generic$List$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$Generic$List$1);
+jst_pushOrReplace(System$Collections$Generic$List$1);
 var System$Collections$Generic$Queue$1 = {
     fullname: "System.Collections.Generic.Queue$1",
     baseTypeName: "System.Object",
@@ -5947,7 +5968,7 @@ var System$Collections$Generic$Queue$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$Generic$Queue$1);
+jst_pushOrReplace(System$Collections$Generic$Queue$1);
 var System$Collections$Generic$Stack$1 = {
     fullname: "System.Collections.Generic.Stack$1",
     baseTypeName: "System.Object",
@@ -6008,7 +6029,7 @@ var System$Collections$Generic$Stack$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$Generic$Stack$1);
+jst_pushOrReplace(System$Collections$Generic$Stack$1);
 var System$Collections$Generic$JsArrayEnumerator$1 = {
     fullname: "System.Collections.Generic.JsArrayEnumerator$1",
     baseTypeName: "System.Object",
@@ -6042,7 +6063,7 @@ var System$Collections$Generic$JsArrayEnumerator$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$Generic$JsArrayEnumerator$1);
+jst_pushOrReplace(System$Collections$Generic$JsArrayEnumerator$1);
 var System$Collections$ObjectModel$Collection$1 = {
     fullname: "System.Collections.ObjectModel.Collection$1",
     baseTypeName: "System.Object",
@@ -6152,7 +6173,7 @@ var System$Collections$ObjectModel$Collection$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$ObjectModel$Collection$1);
+jst_pushOrReplace(System$Collections$ObjectModel$Collection$1);
 var System$Collections$ObjectModel$ObservableCollection$1 = {
     fullname: "System.Collections.ObjectModel.ObservableCollection$1",
     baseTypeName: "System.Collections.ObjectModel.Collection$1",
@@ -6271,7 +6292,7 @@ var System$Collections$ObjectModel$ObservableCollection$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$ObjectModel$ObservableCollection$1);
+jst_pushOrReplace(System$Collections$ObjectModel$ObservableCollection$1);
 var System$Collections$ObjectModel$ObservableCollection$1$Reentrant = {
     fullname: "System.Collections.ObjectModel.ObservableCollection$1.Reentrant",
     baseTypeName: "System.Object",
@@ -6296,7 +6317,7 @@ var System$Collections$ObjectModel$ObservableCollection$1$Reentrant = {
         }
     }
 };
-JsTypes.push(System$Collections$ObjectModel$ObservableCollection$1$Reentrant);
+jst_pushOrReplace(System$Collections$ObjectModel$ObservableCollection$1$Reentrant);
 var System$Collections$ObjectModel$ReadOnlyCollection$1 = {
     fullname: "System.Collections.ObjectModel.ReadOnlyCollection$1",
     baseTypeName: "System.Object",
@@ -6338,7 +6359,7 @@ var System$Collections$ObjectModel$ReadOnlyCollection$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$ObjectModel$ReadOnlyCollection$1);
+jst_pushOrReplace(System$Collections$ObjectModel$ReadOnlyCollection$1);
 var System$Collections$ObjectModel$ReadOnlyObservableCollection$1 = {
     fullname: "System.Collections.ObjectModel.ReadOnlyObservableCollection$1",
     baseTypeName: "System.Collections.ObjectModel.ReadOnlyCollection$1",
@@ -6386,7 +6407,7 @@ var System$Collections$ObjectModel$ReadOnlyObservableCollection$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$ObjectModel$ReadOnlyObservableCollection$1);
+jst_pushOrReplace(System$Collections$ObjectModel$ReadOnlyObservableCollection$1);
 var System$Collections$IListEnumerator$1 = {
     fullname: "System.Collections.IListEnumerator$1",
     baseTypeName: "System.Object",
@@ -6420,10 +6441,8 @@ var System$Collections$IListEnumerator$1 = {
         }
     }
 };
-JsTypes.push(System$Collections$IListEnumerator$1);
+jst_pushOrReplace(System$Collections$IListEnumerator$1);
 
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
 var System$Reflection$BindingFlags = {
     fullname: "System.Reflection.BindingFlags",
     staticDefinition: {
@@ -6450,7 +6469,7 @@ var System$Reflection$BindingFlags = {
     },
     Kind: "Enum"
 };
-JsTypes.push(System$Reflection$BindingFlags);
+jst_pushOrReplace(System$Reflection$BindingFlags);
 var System$Reflection$MemberInfo = {
     fullname: "System.Reflection.MemberInfo",
     baseTypeName: "System.Object",
@@ -6505,7 +6524,7 @@ var System$Reflection$MemberInfo = {
         }
     }
 };
-JsTypes.push(System$Reflection$MemberInfo);
+jst_pushOrReplace(System$Reflection$MemberInfo);
 var System$Reflection$MethodBase = {
     fullname: "System.Reflection.MethodBase",
     baseTypeName: "System.Reflection.MemberInfo",
@@ -6517,7 +6536,7 @@ var System$Reflection$MethodBase = {
         }
     }
 };
-JsTypes.push(System$Reflection$MethodBase);
+jst_pushOrReplace(System$Reflection$MethodBase);
 var System$Reflection$MethodInfo = {
     fullname: "System.Reflection.MethodInfo",
     baseTypeName: "System.Reflection.MethodBase",
@@ -6552,7 +6571,7 @@ var System$Reflection$MethodInfo = {
         }
     }
 };
-JsTypes.push(System$Reflection$MethodInfo);
+jst_pushOrReplace(System$Reflection$MethodInfo);
 var System$Reflection$PropertyInfo = {
     fullname: "System.Reflection.PropertyInfo",
     baseTypeName: "System.Reflection.MemberInfo",
@@ -6617,7 +6636,7 @@ var System$Reflection$PropertyInfo = {
         }
     }
 };
-JsTypes.push(System$Reflection$PropertyInfo);
+jst_pushOrReplace(System$Reflection$PropertyInfo);
 var System$Type = {
     fullname: "System.Type",
     baseTypeName: "System.Reflection.MemberInfo",
@@ -6975,10 +6994,8 @@ var System$Type = {
         }
     }
 };
-JsTypes.push(System$Type);
+jst_pushOrReplace(System$Type);
 
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
 var System$Diagnostics$Debugger = {
     fullname: "System.Diagnostics.Debugger",
     baseTypeName: "System.Object",
@@ -6995,7 +7012,7 @@ var System$Diagnostics$Debugger = {
         }
     }
 };
-JsTypes.push(System$Diagnostics$Debugger);
+jst_pushOrReplace(System$Diagnostics$Debugger);
 var System$Diagnostics$Trace = {
     fullname: "System.Diagnostics.Trace",
     baseTypeName: "System.Object",
@@ -7025,10 +7042,8 @@ var System$Diagnostics$Trace = {
         }
     }
 };
-JsTypes.push(System$Diagnostics$Trace);
+jst_pushOrReplace(System$Diagnostics$Trace);
 
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
 var System$ComponentModel$ListSortDirection = {
     fullname: "System.ComponentModel.ListSortDirection",
     staticDefinition: {
@@ -7037,7 +7052,7 @@ var System$ComponentModel$ListSortDirection = {
     },
     Kind: "Enum"
 };
-JsTypes.push(System$ComponentModel$ListSortDirection);
+jst_pushOrReplace(System$ComponentModel$ListSortDirection);
 var System$Math = {
     fullname: "System.Math",
     baseTypeName: "System.Object",
@@ -7296,10 +7311,8 @@ var System$Math = {
         }
     }
 };
-JsTypes.push(System$Math);
+jst_pushOrReplace(System$Math);
 
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
 var System$Text$StringBuilder = {
     fullname: "System.Text.StringBuilder",
     baseTypeName: "System.Object",
@@ -7492,24 +7505,22 @@ var System$Text$StringBuilder = {
         }
     }
 };
-JsTypes.push(System$Text$StringBuilder);
+jst_pushOrReplace(System$Text$StringBuilder);
 
-if (typeof(JsTypes) == "undefined")
-    var JsTypes = [];
 var System$Runtime$Serialization$IExtensibleDataObject = {
     fullname: "System.Runtime.Serialization.IExtensibleDataObject",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$Runtime$Serialization$IExtensibleDataObject);
+jst_pushOrReplace(System$Runtime$Serialization$IExtensibleDataObject);
 var System$Runtime$Serialization$ISerializable = {
     fullname: "System.Runtime.Serialization.ISerializable",
     baseTypeName: "System.Object",
     assemblyName: "SharpKit.JsClr",
     Kind: "Interface"
 };
-JsTypes.push(System$Runtime$Serialization$ISerializable);
+jst_pushOrReplace(System$Runtime$Serialization$ISerializable);
 var SharpKit$PropertyInfoExtensions = {
     fullname: "SharpKit.PropertyInfoExtensions",
     baseTypeName: "System.Object",
@@ -7529,7 +7540,7 @@ var SharpKit$PropertyInfoExtensions = {
         }
     }
 };
-JsTypes.push(SharpKit$PropertyInfoExtensions);
+jst_pushOrReplace(SharpKit$PropertyInfoExtensions);
 var SharpKit$Extensions2 = {
     fullname: "SharpKit.Extensions2",
     baseTypeName: "System.Object",
@@ -7591,7 +7602,7 @@ var SharpKit$Extensions2 = {
         }
     }
 };
-JsTypes.push(SharpKit$Extensions2);
+jst_pushOrReplace(SharpKit$Extensions2);
 var SharpKit$JavaScript$Utils$Js = {
     fullname: "SharpKit.JavaScript.Utils.Js",
     baseTypeName: "System.Object",
@@ -7680,7 +7691,7 @@ var SharpKit$JavaScript$Utils$Js = {
         }
     }
 };
-JsTypes.push(SharpKit$JavaScript$Utils$Js);
+jst_pushOrReplace(SharpKit$JavaScript$Utils$Js);
 var SharpKit$JsClr$Utils$JsClrClientSerializer = {
     fullname: "SharpKit.JsClr.Utils.JsClrClientSerializer",
     baseTypeName: "System.Object",
@@ -7767,7 +7778,7 @@ var SharpKit$JsClr$Utils$JsClrClientSerializer = {
         }
     }
 };
-JsTypes.push(SharpKit$JsClr$Utils$JsClrClientSerializer);
+jst_pushOrReplace(SharpKit$JsClr$Utils$JsClrClientSerializer);
 var SharpKit$JavaScript$JsNamingHelper = {
     fullname: "SharpKit.JavaScript.JsNamingHelper",
     baseTypeName: "System.Object",
@@ -7848,4 +7859,4 @@ var SharpKit$JavaScript$JsNamingHelper = {
         }
     }
 };
-JsTypes.push(SharpKit$JavaScript$JsNamingHelper);
+jst_pushOrReplace(SharpKit$JavaScript$JsNamingHelper);

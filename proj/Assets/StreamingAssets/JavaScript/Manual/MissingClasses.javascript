@@ -64,5 +64,5 @@
         Kind: "Interface",
     },
 ].forEach(function (jsType) {
-        JsTypes.push(jsType);
+        jst_pushOrReplace(jsType);
     });
