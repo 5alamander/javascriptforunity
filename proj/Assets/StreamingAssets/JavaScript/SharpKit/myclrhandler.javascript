@@ -42,30 +42,30 @@ catch (ex)  {
         printError("JS Error! Error: " + ex + "\n\nStack: \n" + ex.stack);
 }
 
-function jsb_NewMonoBehaviour(name, nativeObj) {
-    var jsType = this[name];
-    if (jsType && jsType.ctor) {
-        var obj = new jsType.ctor();
-        obj.__nativeObj = nativeObj;
-        return obj;
-    }
-    return undefined;
-}
-
-function jsb_NewObject(name) {
-    var arr = name.split(".");
-    var obj = this;
-    arr.forEach(function (a) {
-        if (obj)
-            obj = obj[a];
-    });
-    if (obj && obj.ctor) {
-        var o = {};
-        o.__proto__ = obj.ctor.prototype;
-        return o;
-    }
-    return undefined;
-}
+//function jsb_NewMonoBehaviour(name, nativeObj) {
+//    var jsType = this[name];
+//    if (jsType && jsType.ctor) {
+//        var obj = new jsType.ctor();
+//        obj.__nativeObj = nativeObj;
+//        return obj;
+//    }
+//    return undefined;
+//}
+//
+//function jsb_NewObject(name) {
+//    var arr = name.split(".");
+//    var obj = this;
+//    arr.forEach(function (a) {
+//        if (obj)
+//            obj = obj[a];
+//    });
+//    if (obj && obj.ctor) {
+//        var o = {};
+//        o.__proto__ = obj.ctor.prototype;
+//        return o;
+//    }
+//    return undefined;
+//}
 
 // called from C
 function jsb_CallObjectCtor(name) {
@@ -86,6 +86,7 @@ function jsb_CallObjectCtor(name) {
     return undefined;
 }
 
+// called from js
 function jsb_formatParamsArray(preCount, argArray, funArguments) {
     if (Object.prototype.toString.apply(argArray) === "[object Array]") {
         return argArray;
@@ -94,6 +95,7 @@ function jsb_formatParamsArray(preCount, argArray, funArguments) {
     }
 }
 
+// called from c#
 function jsb_IsInheritanceRel(baseClassName, subClassName) {
     var arr = subClassName.split(".");
     var obj = window;
