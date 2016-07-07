@@ -8,6 +8,7 @@ using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
 using SharpKit.JavaScript;
+using System.Linq;
 
 public class JSBindingSettings
 {
@@ -25,38 +26,12 @@ public class JSBindingSettings
 
 	public static Type[] classes = new Type[]
 	{
-		typeof(UnityEngine.EventSystems.IEventSystemHandler),
-		typeof(UnityEngine.EventSystems.IPointerEnterHandler),
-		typeof(UnityEngine.EventSystems.IPointerExitHandler),
-		typeof(UnityEngine.EventSystems.IPointerDownHandler),
-		typeof(UnityEngine.EventSystems.IPointerUpHandler),
-		typeof(UnityEngine.EventSystems.IPointerClickHandler),
-		typeof(UnityEngine.EventSystems.IBeginDragHandler),
-		typeof(UnityEngine.EventSystems.IInitializePotentialDragHandler),
-		typeof(UnityEngine.EventSystems.IDragHandler),
-		typeof(UnityEngine.EventSystems.IEndDragHandler),
-		typeof(UnityEngine.EventSystems.IDropHandler),
-		typeof(UnityEngine.EventSystems.IScrollHandler),
-		typeof(UnityEngine.EventSystems.IUpdateSelectedHandler),
-		typeof(UnityEngine.EventSystems.ISelectHandler),
-		typeof(UnityEngine.EventSystems.IDeselectHandler),
-		typeof(UnityEngine.EventSystems.IMoveHandler),
-		typeof(UnityEngine.EventSystems.ISubmitHandler),
-		typeof(UnityEngine.EventSystems.ICancelHandler),
-		typeof(UnityEngine.UI.ICanvasElement),
-		typeof(UnityEngine.UI.IMask),
-		typeof(UnityEngine.UI.IMaskable),
-		typeof(UnityEngine.UI.ILayoutElement),
-		typeof(UnityEngine.UI.ILayoutController),
-		typeof(UnityEngine.UI.ILayoutGroup),
-		typeof(UnityEngine.UI.ILayoutSelfController),
-		typeof(UnityEngine.UI.ILayoutIgnorer),
-		typeof(UnityEngine.UI.IMaterialModifier),
-		typeof(UnityEngine.UI.IVertexModifier),
-		typeof(UnityEngine.ICanvasRaycastFilter),
-        
         typeof(UnityEngine.Animation),
         typeof(UnityEngine.GameObject),
+
+// #if UNITY_5_3_5
+//         typeof(UnityEngine.Experimental.Director.DirectorPlayer),
+// #endif
 		typeof(UnityEngine.Animator),
         typeof(UnityEngine.RuntimeAnimatorController),
         typeof(UnityEngine.AnimatorOverrideController),
@@ -140,12 +115,12 @@ public class JSBindingSettings
             (type == typeof(StreamReader) && (memberName == "CreateObjRef" || memberName == "GetLifetimeService" || memberName == "InitializeLifetimeService")) ||
             (type == typeof(StreamWriter) && (memberName == "CreateObjRef" || memberName == "GetLifetimeService" || memberName == "InitializeLifetimeService")) ||
             (type == typeof(UnityEngine.Font) && memberName == "textureRebuildCallback")
-#if UNITY_4_6 || UNITY_4_7
+
              || (type == typeof(UnityEngine.EventSystems.PointerEventData) && memberName == "lastPress")
              || (type == typeof(UnityEngine.UI.InputField) && memberName == "onValidateInput") // property delegate
 		    || (type == typeof(UnityEngine.UI.Graphic) && memberName == "OnRebuildRequested")
 		    || (type == typeof(UnityEngine.UI.Text) && memberName == "OnRebuildRequested")
-#endif
+
 )
         {
             return true;
@@ -218,92 +193,110 @@ public class JSBindingSettings
         }
     }
 
-	public static bool CheckClassBindings(Type[] types)
+	public static Type[] CheckClassBindings()
 	{
-		Dictionary<Type, bool> clrLibrary = new Dictionary<Type, bool>();
+        HashSet<Type> skips = new HashSet<Type>();
 		{
 			//
 			// these types are defined in clrlibrary.javascript
 			//
-			clrLibrary.Add(typeof(System.Object), true);
-			clrLibrary.Add(typeof(System.Exception), true);
-			clrLibrary.Add(typeof(System.SystemException), true);
-			clrLibrary.Add(typeof(System.ValueType), true);
+			skips.Add(typeof(System.Object));
+			skips.Add(typeof(System.Exception));
+			skips.Add(typeof(System.SystemException));
+			skips.Add(typeof(System.ValueType));
 		}
-		
-		Dictionary<Type, bool> dict = new Dictionary<Type, bool>();
+
+        HashSet<Type> wanted = new HashSet<Type>();
 		var sb = new StringBuilder();
 		bool ret = true;
 		
-		// can not export a type twice
-		foreach (var type in types)
+		foreach (var type in classes)
 		{
 			if (typeof(System.Delegate).IsAssignableFrom(type))
 			{
-				sb.AppendFormat("\"{0}\" Delegate can not be exported.\n",
+                sb.AppendFormat("Delegate \"{0}\" can not be exported.\n",
 				                JSNameMgr.GetTypeFullName(type));
 				ret = false;
 			}
 			
 			if (type.IsGenericType && !type.IsGenericTypeDefinition)
 			{
-				sb.AppendFormat(
-					"\"{0}\" is not allowed. Try \"{1}\".\n",
+				sb.AppendFormat("\"{0}\" is not allowed. Try \"{1}\".\n",
 					JSNameMgr.GetTypeFullName(type), JSNameMgr.GetTypeFullName(type.GetGenericTypeDefinition()));
 				ret = false;
 			}
+
+            if (type.IsInterface)
+            {
+                sb.AppendFormat("Interface \"{0}\" should not be in JSBindingSettings.classes.\n",
+                    JSNameMgr.GetTypeFullName(type));
+                ret = false;
+            }
 			
-			if (dict.ContainsKey(type))
+			if (wanted.Contains(type))
 			{
-				sb.AppendFormat(
-					"Operation fail. There are more than 1 \"{0}\" in JSBindingSettings.classes, please check.\n",
-					JSNameMgr.GetTypeFullName(type));
+				sb.AppendFormat("There are more than 1 \"{0}\" in JSBindingSettings.classes.\n", 
+                    JSNameMgr.GetTypeFullName(type));
 				ret = false;
 			}
-			else
+			else if (!skips.Contains(type))
 			{
-				dict.Add(type, true);
+				wanted.Add(type);
 			}
 		}
-		
-		// Is BaseType exported?
-		foreach (var typeb in dict)
-		{
-			Type type = typeb.Key;
-			Type baseType = type.BaseType;
-			if (baseType == null) { continue;  }
-			if (baseType.IsGenericType) baseType = baseType.GetGenericTypeDefinition();
-			// System.Object is already defined in SharpKit clrlibrary
-			if (!clrLibrary.ContainsKey(baseType) && !dict.ContainsKey(baseType))
-			{
-				sb.AppendFormat("\"{0}\"\'s base type \"{1}\" must also be in JSBindingSettings.classes.\n",
-				                JSNameMgr.GetTypeFullName(type),
-				                JSNameMgr.GetTypeFullName(baseType));
-				ret = false;
-			}
 
-			Type[] interfaces = type.GetInterfaces();
-			for (int i = 0; i < interfaces.Length; i++)
-			{
-				Type ti = interfaces[i];
-				
-				string tiFullName = JSNameMgr.GetTypeFullName(ti);
-				
-				// some intefaces's name has <>, skip them
-				if (!tiFullName.Contains("<") && tiFullName.Contains(">") && 
-				    !clrLibrary.ContainsKey(ti) && !dict.ContainsKey(ti))
-				{
-					sb.AppendFormat("\"{0}\"\'s interface \"{1}\" must also be in JSBindingSettings.classes.\n",
-                                    JSNameMgr.GetTypeFullName(type),
-                                    JSNameMgr.GetTypeFullName(ti));
-                    ret = false;
+		foreach (var typeb in wanted.ToArray())
+		{
+			Type type = typeb;
+
+            // add base types
+			Type baseType = type.BaseType;
+            while (baseType != null)
+            {
+                if (!skips.Contains(baseType) && !wanted.Contains(baseType))
+                {
+                    wanted.Add(baseType);
+                }
+                baseType = baseType.BaseType;
+            }
+        }
+
+        foreach (var typeb in wanted.ToArray())
+        {
+            Type type = typeb;
+            Type[] interfaces = type.GetInterfaces();
+            for (int i = 0; i < interfaces.Length; i++)
+            {
+                Type ti = interfaces[i];
+                string tiFullName = JSNameMgr.GetTypeFullName(ti);
+
+                // some intefaces's name has <>, skip them
+                if (!tiFullName.Contains("<") && !tiFullName.Contains(">") &&
+                    !skips.Contains(ti) && !wanted.Contains(ti))
+                {
+                    wanted.Add(ti);
                 }
             }
         }
+
+        Type[] arr = null;
         if (!ret)
         {
             Debug.LogError(sb);
         }
-        return ret;
+        else
+        {
+            arr = new Type[wanted.Count];
+            wanted.CopyTo(arr);
+
+            sb.Remove(0, sb.Length);
+            sb.AppendLine("Classes to export:");
+            foreach (var t in arr)
+            {
+                sb.AppendLine(JSNameMgr.GetTypeFullName(t));
+            }
+            Debug.Log(sb.ToString());
+        }
+        return arr;
     }
 }

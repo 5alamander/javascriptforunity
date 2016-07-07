@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 
 public static class JSGenerator
 {
+    static Type[] Classes, Enums;
 	public static Action<string> Log, LogError;
 	public static string Application_dataPath;
     // input
@@ -568,15 +569,17 @@ using UnityEngine;
     public static Dictionary<Type, string> typeClassName = new Dictionary<Type, string>();
     static string className = string.Empty;
 
-    public static void GenBindings()
+    public static void GenBindings(Type[] types, Type[] enums)
     {
+        JSGenerator.Classes = types;
+        JSGenerator.Enums = enums;
         JSGenerator.OnBegin();
 
         // enums
-        for (int i = 0; i < JSBindingSettings.enums.Length; i++)
+        for (int i = 0; i < Enums.Length; i++)
         {
             JSGenerator.Clear();
-            JSGenerator.type = JSBindingSettings.enums[i];
+            JSGenerator.type = Enums[i];
             JSGenerator.GenerateEnum();
         }
 
@@ -584,10 +587,10 @@ using UnityEngine;
 		Dictionary<string, List<string>> allDefs = new Dictionary<string, List<string>>();
 
         // classes
-        for (int i = 0; i < JSBindingSettings.classes.Length; i++)
+        for (int i = 0; i < Classes.Length; i++)
         {
             JSGenerator.Clear();
-            JSGenerator.type = JSBindingSettings.classes[i];
+            JSGenerator.type = Classes[i];
             if (!typeClassName.TryGetValue(type, out className))
                 className = type.Name;
             
@@ -615,6 +618,6 @@ using UnityEngine;
 		Directory.CreateDirectory(dir);
 		File.WriteAllText(dir + "/AllExportedMembers.txt", sb.ToString());
 
-        Log("Generate JS Bindings OK. enum " + JSBindingSettings.enums.Length.ToString() + ", class " + JSBindingSettings.classes.Length.ToString());
+        Log("Generate JS Bindings OK. enum " + Enums.Length.ToString() + ", class " + Classes.Length.ToString());
     }
 }

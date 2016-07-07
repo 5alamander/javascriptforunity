@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System;
 
 public static class JSMenus
 {
@@ -12,8 +13,9 @@ public static class JSMenus
 			EditorUtility.DisplayDialog("Tip:", "please wait EditorApplication compiling", "OK");
 			return; 
 		}
-				
-		if (!JSBindingSettings.CheckClassBindings(JSBindingSettings.classes))
+
+        Type[] classes = JSBindingSettings.CheckClassBindings();
+        if (classes == null)
 		{
 			return;
 		}
@@ -33,8 +35,8 @@ public static class JSMenus
 
 		JSDataExchangeEditor.reset();
 		UnityEngineManual.InitManual();
-		CSGenerator.GenBindings();
-		JSGenerator.GenBindings();
+        CSGenerator.GenBindings(classes);
+        JSGenerator.GenBindings(classes, JSBindingSettings.enums);
 		UnityEngineManual.AfterUse();
 
 		AssetDatabase.Refresh();

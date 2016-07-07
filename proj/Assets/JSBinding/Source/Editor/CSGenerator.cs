@@ -8,8 +8,8 @@ using System.Text.RegularExpressions;
 
 public static class CSGenerator
 {
+    static Type[] Classes;
 	public static Action<string> Log, LogError;
-
     static StringBuilder sb;
     public static Type type;
     public static string thisClassName;
@@ -1238,9 +1238,9 @@ public class CSharpGenerated
 ]]
 ";
         StringBuilder sbA = new StringBuilder();
-        for (int i = 0; i < JSBindingSettings.classes.Length; i++)
+        for (int i = 0; i < Classes.Length; i++)
         {
-            sbA.AppendFormat("        {0}Generated.__Register();\n", JSNameMgr.GetTypeFileName(JSBindingSettings.classes[i]));
+            sbA.AppendFormat("        {0}Generated.__Register();\n", JSNameMgr.GetTypeFileName(Classes[i]));
         }
         StringBuilder sb = new StringBuilder();
         sb.AppendFormat(fmt, sbA);
@@ -1369,17 +1369,18 @@ using UnityEngine;
         sb.Replace("'", "\"");
     }
 
-    public static void GenBindings()
+    public static void GenBindings(Type[] classes)
     {
+        CSGenerator.Classes = classes;
         CSGenerator.OnBegin();
 
         allClassCallbackNames = null;
-        allClassCallbackNames = new List<ClassCallbackNames>(JSBindingSettings.classes.Length);
+        allClassCallbackNames = new List<ClassCallbackNames>(Classes.Length);
 
-        for (int i = 0; i < JSBindingSettings.classes.Length; i++)
+        for (int i = 0; i < Classes.Length; i++)
         {
             CSGenerator.Clear();
-            CSGenerator.type = JSBindingSettings.classes[i];
+            CSGenerator.type = Classes[i];
             CSGenerator.GenerateClass();
         }
         GenerateRegisterAll();
@@ -1387,7 +1388,7 @@ using UnityEngine;
 
         CSGenerator.OnEnd();
 
-		Log("Generate CS Bindings OK. total = " + JSBindingSettings.classes.Length.ToString());
+        Log("Generate CS Bindings OK. total = " + Classes.Length.ToString());
     }
 
     public static void Type2TypeFlag(Type type, cg.args argFlag)
