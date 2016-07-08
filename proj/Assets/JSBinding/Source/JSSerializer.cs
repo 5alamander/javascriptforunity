@@ -4,7 +4,6 @@ using System.Text;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
-using SharpKit.JavaScript;
 
 // serialize something to javascript object
 public class JSSerializer : MonoBehaviour
