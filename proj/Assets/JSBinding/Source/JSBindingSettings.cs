@@ -77,6 +77,17 @@ public class JSBindingSettings
 		typeof(UnityEngine.Sprite),
 	};
 
+	public static bool IsDiscardType(Type type)
+	{
+		if (type.Name == "IHasXmlChildNode" ||
+		    type.Name == "IGraphicEnabledDisabled")
+		{
+			return true;
+		}
+
+		return false;
+	}
+    
     // some public class members can be used
     // some of them are only in editor mode
     // some are because of unknown reason
@@ -257,7 +268,9 @@ public class JSBindingSettings
 			Type baseType = type.BaseType;
             while (baseType != null)
             {
-                if (!skips.Contains(baseType) && !wanted.Contains(baseType))
+                if (!skips.Contains(baseType) && !wanted.Contains(baseType) &&
+				    !(baseType.IsGenericType && !baseType.IsGenericTypeDefinition) &&
+				    !IsDiscardType(baseType))
                 {
                     wanted.Add(baseType);
                 }
@@ -276,7 +289,8 @@ public class JSBindingSettings
 
                 // some intefaces's name has <>, skip them
                 if (!tiFullName.Contains("<") && !tiFullName.Contains(">") &&
-                    !skips.Contains(ti) && !wanted.Contains(ti))
+                    !skips.Contains(ti) && !wanted.Contains(ti) &&
+				    !IsDiscardType(ti))
                 {
                     wanted.Add(ti);
                 }
