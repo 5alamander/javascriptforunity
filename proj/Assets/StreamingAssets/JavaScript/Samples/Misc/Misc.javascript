@@ -2,6 +2,10 @@ jss.define_mb("Dog", function () {
     this.Eat = function () {
         print("EAT!");
     }
+    
+    this.OnGUI = function () {
+        print("on gui");
+    }
 });
 
 jss.define_mb("Misc", function() {
@@ -11,7 +15,7 @@ jss.define_mb("Misc", function() {
         var dog = this.oDogGameObject.GetComponent$1(jss.Dog);
         dog.Eat();
 
-        this.oDogGameObject.AddComponent$1(jss.Dog);
+        this.oDogGameObject.AddComponent$1(jss.Dog, 1/* Custom JSComponent */ );
 
         //this.StartCoroutine$$IEnumerator(this.SayHello());
     }

@@ -96,7 +96,22 @@ public partial class UnityEngineManual
         }
         else
         {
-			JSComponent jsComp = go.AddComponent<JSComponent>();
+			JSComponent jsComp;
+			int iOfJsComp = 0;
+			if (count > 1)
+				iOfJsComp = JSApi.getInt32((int)JSApi.GetType.Arg);
+
+			switch (iOfJsComp)
+			{
+			case 1:
+				jsComp = go.AddComponent<JSComponentCustom1>();
+				break;
+
+			default:
+				jsComp = go.AddComponent<JSComponent>();
+				break;
+            }
+
             jsComp.jsClassName = typeString;
             jsComp.jsFail = false;
             jsComp.init(true);

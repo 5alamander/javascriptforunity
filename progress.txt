@@ -1,4 +1,4 @@
-# 重载函数
+﻿# 重载函数
 # 索引器
 # 泛型
 # 删除调试
@@ -8,3 +8,5 @@
 # JSSerializer只支持一级
 # 不要SharpKitGeneratedFiles.javascript
 # ! GetComponent
+# AddComponent
+# 

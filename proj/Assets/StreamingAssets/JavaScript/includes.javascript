@@ -17,6 +17,7 @@ CS.require("Lib/Manual/UnityEngine_Vector3");
 CS.require("Lib/Manual/UnityEngine_Vector2");
 CS.require("Lib/Manual/UnityEngine_MonoBehaviour");
 CS.require("Lib/Manual/UnityEngine_WaitForSeconds");
+CS.require("Lib/Manual/UnityEngine_GameObject");
 CS.require("Lib/Manual/MissingClasses");
 
 // A class representing C# object of unknown type
