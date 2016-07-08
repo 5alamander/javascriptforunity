@@ -409,7 +409,7 @@ _jstype.staticDefinition.{1} = function({2}) [[
             //int TCount = method.GetGenericArguments().Length;
 
             string methodName = method.Name;
-            if (methodName == "ToString") { methodName = "toString"; }
+//            if (methodName == "ToString") { methodName = "toString"; }
 
 			string mName = SharpKitMethodName(methodName, paramS, bOverloaded, TCount);
 			lstNames.Add((method.IsStatic ? "Static_" : "") + mName);

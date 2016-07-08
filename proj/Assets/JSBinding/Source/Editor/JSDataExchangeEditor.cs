@@ -120,13 +120,13 @@ public class JSDataExchangeEditor : JSDataExchangeMgr
                     .ToString();
             }
 
-            if (isOut)
-            {
+			if (isOut || isRef)
+			{
                 var _sb = new StringBuilder();
                 if (bTOrContainsT)
                 {
                     // TODO
-                    // sorry, 'arr_t' is written in CSGenerator2.cs
+                    // sorry, 'arr_t' is written in CSGenerator.cs
                     _sb.AppendFormat("        {0} = arr_t[{1}];\n", ph.argName, paramIndex);
                 }
 

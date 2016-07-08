@@ -9,4 +9,4 @@
 # 不要SharpKitGeneratedFiles.javascript
 # ! GetComponent
 # AddComponent
-# 
+# ref bug

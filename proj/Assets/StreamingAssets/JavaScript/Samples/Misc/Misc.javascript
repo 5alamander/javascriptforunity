@@ -4,7 +4,7 @@ jss.define_mb("Dog", function () {
     }
     
     this.OnGUI = function () {
-        print("on gui");
+        //print("on gui");
     }
 });
 

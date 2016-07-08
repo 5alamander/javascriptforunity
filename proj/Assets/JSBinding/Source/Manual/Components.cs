@@ -97,11 +97,7 @@ public partial class UnityEngineManual
         else
         {
 			JSComponent jsComp;
-			int iOfJsComp = 0;
-			if (count > 1)
-				iOfJsComp = JSApi.getInt32((int)JSApi.GetType.Arg);
-
-			switch (iOfJsComp)
+			switch (ComponentsHelper.s_iOfJSComponent)
 			{
 			case 1:
 				jsComp = go.AddComponent<JSComponentCustom1>();

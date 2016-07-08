@@ -26,6 +26,10 @@ public class JSBindingSettings
 
 	public static Type[] classes = new Type[]
 	{
+		// special for JSBinding, do not delete it
+		// it's for custom JSComponent
+		typeof(ComponentsHelper),
+
         typeof(UnityEngine.Animation),
         typeof(UnityEngine.GameObject),
 

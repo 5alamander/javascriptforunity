@@ -12,7 +12,7 @@ CS.require("Lib/Sk/clrlibrary");
 // C# classes library, may overwrite some Sk classes
 CS.require("Lib/Gen");
 
-// Manually written js, will overwrite some classes methods
+// Manually written js, will overwrite some classes methods above
 CS.require("Lib/Manual/UnityEngine_Vector3");
 CS.require("Lib/Manual/UnityEngine_Vector2");
 CS.require("Lib/Manual/UnityEngine_MonoBehaviour");
