@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using jsval = JSApi.jsval;
 
-// Engine of JavaScript
-// There can only be 1 JSEngine instance in the scene
+// JSEngine: Engine of JavaScript
+// Usage: drag one Assets/JSBinding/_JSEngine.prefab to the scene!
+// There can only be one JSEngine instance in Hierarchy window!
 public class JSEngine : MonoBehaviour
 {
     public static JSEngine inst;
@@ -14,31 +15,22 @@ public class JSEngine : MonoBehaviour
     public static bool initSuccess { get { return initState == 1; } set { if (value) initState = 1; } }
     public static bool initFail { get { return initState == 2; } set { if (value) initState = 2; else initState = 0; } }
 
-    /*
-     * Garbage Collection setting
-     * if GCInterval < 0, will not call GC (default value, SpiderMonkey will automatically call GC)
-     * if GCInterval >= 0, will call GC every GCInterval seconds
-     */
+    // Garbage Collection setting
+    // if GCInterval < 0, will not call GC (default value, SpiderMonkey will automatically call GC)
+    // if GCInterval >= 0, will call GC every GCInterval seconds
     public float GCInterval = -1f;
     public JSFileLoader jsLoader;
 
-    /*
-     * 
-     */
     public string[] InitLoadScripts = new string[0];
 
     public void OnInitJSEngine(bool bSuccess)
     {
-        /* 
-         * Debugging is only available in desktop platform
-         * */
         if (bSuccess)
         {
             if (InitLoadScripts != null)
             {
                 for (var i = 0; i < InitLoadScripts.Length; i++)
                 {
-                    // JSMgr.ExecuteFile(InitLoadScripts[i]);
                     JSMgr.evaluate(InitLoadScripts[i]);
                 }
             }
@@ -79,9 +71,7 @@ public class JSEngine : MonoBehaviour
 
             if (jse != null)
             {
-                /*
-                * Don't destroy this GameObject on load
-                */
+                // ! Don't destroy this GameObject on load
                 DontDestroyOnLoad(jse.gameObject);
                 inst = jse;
 
@@ -175,9 +165,7 @@ public class JSEngine : MonoBehaviour
 	public bool showStatistics = true;
     public int guiX = 0;
 
-    /// <summary>
-    /// OnGUI: Output some statistics
-    /// </summary>
+    // OnGUI: Output some statistics
     void OnGUI()
     {
         if (this != JSEngine.inst)

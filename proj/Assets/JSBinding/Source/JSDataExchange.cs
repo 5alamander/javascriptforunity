@@ -289,27 +289,9 @@ public class JSDataExchangeMgr
         }
     }
 
-    /// <summary>
-    /// Should return base type object?
-    /// </summary>
-    /// <param name="typeName">Name of the type.</param>
-    /// <returns></returns>
-//     public bool shouldReturnBaseTypeObject(string typeName)
-//     {
-// 
-//     }
-
-    /// <summary>
-    /// Sets the object.
-    /// if e == UpdateRefARGV, currIndex must be set before this function
-    /// 
-    /// operation of this function:
-    /// 1) if JavaScript already exists, return that JavaScript object.
-    /// 2) else, create a new JavaScript object and return it.
-    /// </summary>
-    /// <param name="e">The e.</param>
-    /// <param name="csObj">The cs object.</param>
-    /// <returns></returns>
+    // setObject: return an object (not primitive, enums, string) to javascript!
+    // 1) if JavaScript already exists, return that JavaScript object.
+    // 2) else, create a new JavaScript object and return it.
     public int setObject(/* JSApi.SetType */int e, object csObj)
     {
 		// http://answers.unity3d.com/questions/1087158/unityengineobject-is-null-but-systemobject-is-not.html
@@ -382,134 +364,8 @@ public class JSDataExchangeMgr
         JSApi.setObject(e, jsObjID);
         return jsObjID;
     }
-    // TODO what?
-//     public void setDelegate(eSetType e, object csObj)
-//     {
-//         switch (e)
-//         {
-//             case eSetType.Jsval:
-//             case eSetType.SetRval:
-//                 {
-//                     JSApi.JSh_SetJsvalUndefined(ref vc.valReturn);
-//                     if (csObj != null)
-//                     {
-//                         IntPtr jsObj = IntPtr.Zero;
-//                         Type csType = csObj.GetType();
-//                         if (csType.IsClass && (jsObj = JSMgr.getJSObj(csObj)) != IntPtr.Zero)
-//                         {
-//                             JSApi.JSh_SetJsvalObject(ref vc.valReturn, jsObj);
-//                         }
-//                         else
-//                         {
-//                             string typeName = JSNameMgr.GetJSTypeFullName(csType);
-//                             IntPtr jstypeObj = JSDataExchangeMgr.GetJSObjectByname(typeName);
-//                             if (jstypeObj != IntPtr.Zero)
-//                             {
-//                                 jsObj = JSApi.JSh_NewObjectAsClass(JSMgr.cx, jstypeObj, "ctor", null /*JSMgr.mjsFinalizer*/);
-// 
-//                                 // __nativeObj
-//                                 IntPtr __nativeObj = JSApi.JSh_NewMyClass(JSMgr.cx, JSMgr.mjsFinalizer);
-//                                 JSMgr.addJSCSRelation(jsObj, __nativeObj, csObj);
-// 
-//                                 // jsObj.__nativeObj = __nativeObj
-//                                 jsval val = new jsval();
-//                                 JSApi.JSh_SetJsvalObject(ref val, __nativeObj);
-//                                 JSApi.JSh_SetUCProperty(JSMgr.cx, jsObj, "__nativeObj", -1, ref val);
-// 
-//                                 JSApi.JSh_SetJsvalObject(ref vc.valReturn, jsObj);
-//                             }
-//                             else
-//                             {
-//                                 Debug.LogError("Return a \"" + typeName + "\" to JS failed. Did you forget to export that class?");
-//                             }
-//                         }
-//                     }
-// 
-//                     if (e == eSetType.Jsval)
-//                         vc.valTemp = vc.valReturn;
-//                     else if (e == eSetType.SetRval)
-//                         JSApi.JSh_SetRvalJSVAL(JSMgr.cx, vc.vp, ref vc.valReturn);
-//                 }
-//                 break;
-//             case eSetType.UpdateARGVRefOut:
-//                 {
-//                     jsval val = new jsval(); val.asBits = 0;
-//                     IntPtr argvJSObj = JSApi.JSh_ArgvObject(JSMgr.cx, vc.vp, vc.currIndex);
-//                     if (argvJSObj != IntPtr.Zero)
-//                     {
-//                         bool success = false;
-// 
-//                         IntPtr jsObj = IntPtr.Zero;
-//                         Type csType = csObj.GetType();
-//                         if (csType.IsClass && (jsObj = JSMgr.getJSObj(csObj)) != IntPtr.Zero)
-//                         {
-//                             // 3)
-//                             // argvObj.Value = jsObj
-//                             //
-//                             JSApi.JSh_SetJsvalObject(ref val, jsObj);
-//                             JSApi.JSh_SetUCProperty(JSMgr.cx, argvJSObj, "Value", -1, ref val);
-//                             success = true;
-//                         }
-//                         else
-//                         {
-//                             // csObj must not be null
-//                             IntPtr jstypeObj = JSDataExchangeMgr.GetJSObjectByname(JSNameMgr.GetTypeFullName(csObj.GetType()));
-//                             if (jstypeObj != IntPtr.Zero)
-//                             {
-//                                 // 1)
-//                                 // jsObj: prototype  
-//                                 // __nativeObj: csObj + finalizer
-//                                 // 
-//                                 jsObj = JSApi.JSh_NewObjectAsClass(JSMgr.cx, jstypeObj, "ctor", null /*JSMgr.mjsFinalizer*/);
-//                                 // __nativeObj
-//                                 IntPtr __nativeObj = JSApi.JSh_NewMyClass(JSMgr.cx, JSMgr.mjsFinalizer);
-//                                 JSMgr.addJSCSRelation(jsObj, __nativeObj, csObj);
-// 
-//                                 //
-//                                 // 2)
-//                                 // jsObj.__nativeObj = __nativeObj
-//                                 //
-//                                 JSApi.JSh_SetJsvalObject(ref val, __nativeObj);
-//                                 JSApi.JSh_SetUCProperty(JSMgr.cx, jsObj, "__nativeObj", -1, ref val);
-// 
-//                                 // 3)
-//                                 // argvObj.Value = jsObj
-//                                 //
-//                                 JSApi.JSh_SetJsvalObject(ref val, jsObj);
-//                                 JSApi.JSh_SetUCProperty(JSMgr.cx, argvJSObj, "Value", -1, ref val);
-//                                 success = true;
-//                             }
-//                             else
-//                             {
-//                                 Debug.LogError("Return a \"" + JSNameMgr.GetTypeFullName(csObj.GetType()) + "\" to JS failed. Did you forget to export that class?");
-//                             }
-//                         }
-// 
-//                         if (!success)
-//                         {
-//                             JSApi.JSh_SetJsvalUndefined(ref val);
-//                             JSApi.JSh_SetUCProperty(JSMgr.cx, argvJSObj, "Value", -1, ref val);
-//                         }
-//                     }
-//                 }
-//                 break;
-//             default:
-//                 Debug.LogError("Not Supported");
-//                 break;
-//         }
-//     }
 
     #endregion
-
-    
-    // return true if don't generate default constructor
-//    public static bool DontGenDefaultConstructor(Type type)
-//    {
-//        bool bDontGenDefaultConstructor =
-//            // type.GetConstructors().Length == 0 && 
-//            type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).Length > 0;
-//        return bDontGenDefaultConstructor;
-//    }
 
     static Dictionary<string, Type> typeCache = new Dictionary<string,Type>();
     public static Type GetTypeByName(string typeName, Type defaultType = null)
@@ -522,13 +378,6 @@ public class JSDataExchangeMgr
                 t = a.GetType(typeName);
                 if (t != null)
                 {
-                    // !!!
-                    // if a type is marked with JsTypeAttribute
-                    // don't return it
-//                     if (t.GetCustomAttributes(typeof(SharpKit.JavaScript.JsTypeAttribute), false).Length > 0)
-//                     {
-//                         t = null;
-//                     }
                     break;
                 }
             }
@@ -546,71 +395,6 @@ public class JSDataExchangeMgr
     }
 
 
-    /*
-    // Runtime Only
-    // type: class type
-    // methodName: method name
-    // TCount: generic parameter count
-    // vc: JSVCall instance
-    public static MethodInfo MakeGenericConstructor(Type type, int TCount, int paramCount, JSVCall vc)
-    {
-        // Get generic method by name and param count.
-        ConstructorInfo conT = JSDataExchangeMgr.GetGenericConstructorInfo(type, TCount, paramCount);
-        if (conT == null)
-        {
-            return null;
-        }
-
-        // get T types
-        Type[] genericTypes = new Type[TCount];
-        for (int i = 0; i < TCount; i++)
-        {
-            // Get generic types from js.
-            System.Type t = JSDataExchangeMgr.GetTypeByName(JSMgr.datax.getString(JSDataExchangeMgr.eGetType.GetARGV));
-            genericTypes[i] = t;
-            if (t == null)
-            {
-                return null;
-            }
-        }
-
-        // Make generic method.
-        MethodInfo method = methodT.MakeGenericMethod(genericTypes);
-        return method;
-    }
-    // Runtime Only
-    // called by MakeGenericConstructor
-    // get generic Constructor by matching TCount,paramCount, if more than 1 match, return null.
-    static ConstructorInfo GetGenericConstructorInfo(Type type, int TCount, int paramCount)
-    {
-        ConstructorInfo[] constructors = type.GetConstructors();
-        if (constructors == null || constructors.Length == 0)
-        {
-            return null;
-        }
-
-        ConstructorInfo con = null;
-        for (int i = 0; i < constructors.Length; i++)
-        {
-            if (constructors[i].IsGenericMethodDefinition &&
-                constructors[i].GetGenericArguments().Length == TCount &&
-                constructors[i].GetParameters().Length == paramCount)
-            {
-                if (con == null)
-                    con = constructors[i];
-                else
-                {
-                    Debug.LogError("More than 1 Generic Constructor found!!! " + GetTypeFullName(type) + "." + name);
-                    return null;
-                }
-            }
-        }
-        if (con == null)
-        {
-            Debug.LogError("No generic constructor found! " + GetTypeFullName(type));
-        }
-        return con;
-    }*/
     public static ConstructorInfo makeGenericConstructor(Type type, ConstructorID constructorID)
     {
         int tCount = type.GetGenericArguments().Length;
@@ -827,7 +611,7 @@ public class JSDataExchange_Arr
         string getValMethod = JSDataExchangeMgr.GetMetatypeKeyword(elementType).Replace("get", "set");
 
         // 2015.Sep.2
-        // +判断arrRet为null的情况
+        // + check if (arrRet == null)
         if (elementType.ContainsGenericParameters)
         {
             sb.AppendFormat("    var arrRet = (Array){0};\n", expVar)
@@ -871,36 +655,6 @@ public class CSRepresentedObject
 {
     public static int s_objCount = 0;
     public static int s_funCount = 0;
-
-//     public static bool operator !=(CSRepresentedObject x, CSRepresentedObject y)
-//     {
-//         return !(x == y);
-//     }
-//     public static bool operator ==(CSRepresentedObject x, CSRepresentedObject y)
-//     {
-//         // If both are null, or both are same instance, return true.
-//         if (System.Object.ReferenceEquals(x, y))
-//         {
-//             return true;
-//         }
-//         return x.jsObjID == y.jsObjID;
-//     }
-//     public override bool Equals(object obj)
-//     {
-//         // If parameter is null return false.
-//         if (obj == null)
-//         {
-//             return false;
-//         }
-// 
-//         // If parameter cannot be cast to Point return false.
-//         CSRepresentedObject p = obj as CSRepresentedObject;
-//         if ((System.Object)p == null)
-//         {
-//             return false;
-//         }
-//         return this.jsObjID == p.jsObjID;
-//     }
 
     // don't create this object directly, should use JSDataExchangeMgr.getObject
     public CSRepresentedObject(int jsObjID, bool bFunction = false)

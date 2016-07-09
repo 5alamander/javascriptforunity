@@ -3,10 +3,9 @@ using System.Collections;
 using System.IO;
 
 
-/*
- * JSFileLoader
- * All js files are loaded by this class.
- */
+// 
+// JSFileLoader: a simple javascript file loader!
+// 
 public class JSFileLoader : MonoBehaviour 
 {
     //public bool Async = true;

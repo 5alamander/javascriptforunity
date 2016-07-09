@@ -6,6 +6,9 @@ using System.Collections;
 using System.Text;
 using System.Security;
 
+//
+// JSApi: wrap C++ calls
+//
 public class JSApiBase
 {
     /*
@@ -124,7 +127,7 @@ public class JSApiBase
     }
 
     /*
-     * ****************** Calling stack ****************** 
+     * ****************** Call Stack ****************** 
      */
 
     public enum GetType

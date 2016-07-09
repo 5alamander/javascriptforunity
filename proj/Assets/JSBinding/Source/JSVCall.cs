@@ -19,7 +19,9 @@ using System.Runtime.InteropServices;
 
 using jsval = JSApi.jsval;
 
-
+// JSVCall: communicate between javascript and c#
+//          entry function for javascript -> c#
+//          entry function for c# -> javascript
 public class JSVCall
 {
     public bool CallJSFunctionValue(int jsObjID, int funID, params object[] args)

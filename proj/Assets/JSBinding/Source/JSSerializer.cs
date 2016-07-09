@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 
-// serialize something to javascript object
+// JSSerializer: serialize something to javascript object
 public class JSSerializer : MonoBehaviour
 {
     public string jsClassName = string.Empty;

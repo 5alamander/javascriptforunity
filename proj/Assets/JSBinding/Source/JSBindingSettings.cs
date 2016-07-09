@@ -18,11 +18,15 @@ public class JSBindingSettings
 	public static string jsGenFiles { get { return jsDir + "/Lib/Gen" + jsExtension; } }
 	public static string csGenDir = Application.dataPath + "/JSBinding/Generated";
 
+    // add c# enums to this array to export to javascript!
+    //
     public static Type[] enums = new Type[]
     {
 		typeof(KeyCode),
     };
 
+    // add c# types to this array to export to javascript!
+    //
 	public static Type[] classes = new Type[]
 	{
 		// special for JSBinding, do not delete it
