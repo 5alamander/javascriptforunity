@@ -211,6 +211,9 @@ public class JSBindingSettings
         }
     }
 
+	// CheckClassBindings: check 'classes' array
+	// 1 skip something unnecessary or unsupported
+	// 2 auto add base classes & interfaces
 	public static Type[] CheckClassBindings()
 	{
         HashSet<Type> skips = new HashSet<Type>();
@@ -230,13 +233,15 @@ public class JSBindingSettings
 		
 		foreach (var type in classes)
 		{
+			// delegate is not allowed
 			if (typeof(System.Delegate).IsAssignableFrom(type))
 			{
                 sb.AppendFormat("Delegate \"{0}\" can not be exported.\n",
 				                JSNameMgr.GetTypeFullName(type));
 				ret = false;
 			}
-			
+
+			// generic type but not generic type definition is not allowed
 			if (type.IsGenericType && !type.IsGenericTypeDefinition)
 			{
 				sb.AppendFormat("\"{0}\" is not allowed. Try \"{1}\".\n",
@@ -244,13 +249,15 @@ public class JSBindingSettings
 				ret = false;
 			}
 
+			// interfaces should not be in this array, they are auto-added
             if (type.IsInterface)
             {
                 sb.AppendFormat("Interface \"{0}\" should not be in JSBindingSettings.classes.\n",
                     JSNameMgr.GetTypeFullName(type));
                 ret = false;
             }
-			
+
+			// duplicated type is not allowed
 			if (wanted.Contains(type))
 			{
 				sb.AppendFormat("There are more than 1 \"{0}\" in JSBindingSettings.classes.\n", 
@@ -263,6 +270,7 @@ public class JSBindingSettings
 			}
 		}
 
+		// add base types
 		foreach (var typeb in wanted.ToArray())
 		{
 			Type type = typeb;
@@ -281,6 +289,7 @@ public class JSBindingSettings
             }
         }
 
+		// add interfaces
         foreach (var typeb in wanted.ToArray())
         {
             Type type = typeb;
@@ -310,6 +319,7 @@ public class JSBindingSettings
             arr = new Type[wanted.Count];
             wanted.CopyTo(arr);
 
+			// output final types to be exported
             sb.Remove(0, sb.Length);
             sb.AppendLine("Classes to export:");
             foreach (var t in arr)
