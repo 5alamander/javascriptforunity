@@ -315,7 +315,7 @@ public static class JSMgr
     public static JSDataExchangeMgr datax = new JSDataExchangeMgr();
 
 
-    // CSEntry: entry for javascript CS.Call
+    // CSEntry: entry for javascript CS.Call, js -> c#
     [MonoPInvokeCallbackAttribute(typeof(JSApi.CSEntry))]
     static int CSEntry(int iOP, int slot, int index, int isStatic, int argc)
     {

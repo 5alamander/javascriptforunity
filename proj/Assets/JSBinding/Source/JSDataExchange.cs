@@ -11,12 +11,13 @@ public class JSDataExchangeMgr
 {
     const int VALUE_LEN = -1;
 
+	// how to get value from javascript?
     public enum eGetType
     {
-        GetARGV,
-        GetARGVRefOut,
-        GetJSFUNRET,
-        Jsval,
+        GetARGV,		// get value from a normal argument
+        GetARGVRefOut,	// get value from a ref/out argument
+        GetJSFUNRET,	// get value from javascript function return
+        Jsval,			// get value from a jsval
     }
 
     System.Object mTempObj;
@@ -203,12 +204,12 @@ public class JSDataExchangeMgr
     }
     #endregion
 
-
+	// how to set a value to javascript?
     public enum eSetType
     {
-        SetRval,
-        UpdateARGVRefOut,
-        Jsval,
+        SetRval,			// set value as javascript function's return value
+        UpdateARGVRefOut,	// set value to update ref/out argument
+        Jsval,				// set value to a jsval
         //GetJSFUNRET
     }
 

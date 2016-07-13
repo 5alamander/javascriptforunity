@@ -9,6 +9,7 @@ using System.Security;
 
 using jsval = JSApi.jsval;
 
+// example to show how to customize JSComponent
 public class JSComponentCustom1 : JSComponent
 {
 	int idOnGUI = 0;

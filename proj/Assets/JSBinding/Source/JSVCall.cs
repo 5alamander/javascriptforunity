@@ -24,6 +24,7 @@ using jsval = JSApi.jsval;
 //          entry function for c# -> javascript
 public class JSVCall
 {
+	// call a javascript function specifing javascript object id, function id, and arguments
     public bool CallJSFunctionValue(int jsObjID, int funID, params object[] args)
     {
         if (JSMgr.IsShutDown) return false;
@@ -45,8 +46,8 @@ public class JSVCall
         JSApi.callFunctionValue(jsObjID, funID, argsLen);
         return true;
     }
-
-
+	
+	// call a javascript function specifing javascript object id, function name, and arguments
     public bool CallJSFunctionName(int jsObjID, string funName, params object[] args)
     {
         if (JSMgr.IsShutDown) return false;
@@ -72,6 +73,8 @@ public class JSVCall
     public object csObj;
 
     public int jsCallCount = 0;
+
+	// entry for js -> c#
     public bool CallCallback(int iOP, int slot, int index, int isStatic, int argc)
     {
         jsCallCount++;

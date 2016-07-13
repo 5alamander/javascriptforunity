@@ -9,6 +9,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
 
+// JSBindingSettings: Configs for JSBinding
 public class JSBindingSettings
 {
 	public static string jsExtension = ".javascript";
